@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox style="-fx-background-color: #F2F2F7; -fx-background-radius: 0 20 20 0;">
+         <children>
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent; -fx-background: transparent;" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
+               <content>
+                  <VBox spacing="20.0">
+                     <children>
+                        <VBox prefHeight="811.0" prefWidth="618.0" spacing="25.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+                           <children>
+                              <VBox spacing="5.0">
+                                 <children>
+                                    <Label text="Event Information" textFill="#1C1C1E">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Fill in the details below to create your event" textFill="#8E8E93">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox spacing="8.0">
+                                 <children>
+                                    <Label text="Event Name *" textFill="#1C1C1E">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="eventNameField" promptText="Enter your event name" style="-fx-background-color: #F2F2F7; -fx-border-color: transparent; -fx-border-width: 0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 15; -fx-font-size: 14;" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="8.0">
+                                 <children>
+                                    <Label text="Description *" textFill="#1C1C1E">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextArea fx:id="descriptionArea" prefRowCount="4" promptText="Describe your event in detail..." style="-fx-background-color: #F2F2F7; -fx-border-color: transparent; -fx-border-width: 0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 14; -fx-control-inner-background: #F2F2F7;" wrapText="true" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="15.0">
+                                 <children>
+                                    <Label text="Date and Time *" textFill="#1C1C1E">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox spacing="20.0">
+                                       <children>
+                                          <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label text="Start" textFill="#8E8E93">
+                                                   <font>
+                                                      <Font size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <DatePicker fx:id="startDatePicker" maxWidth="1.7976931348623157E308" promptText="Select date" style="-fx-background-color: #F2F2F7; -fx-border-color: transparent; -fx-border-radius: 10; -fx-background-radius: 10;" />
+                                                <HBox spacing="8.0">
+                                                   <children>
+                                                      <TextField fx:id="startTimeField" prefWidth="80.0" promptText="HH:MM" style="-fx-background-color: #F2F2F7; -fx-border-color: transparent; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10; -fx-font-size: 14;" />
+                                                      <ComboBox fx:id="startAmPmComboBox" prefWidth="70.0" promptText="AM/PM" style="-fx-background-color: #F2F2F7; -fx-border-color: transparent; -fx-border-radius: 10; -fx-background-radius: 10;" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                          <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label text="End" textFill="#8E8E93">
+                                                   <font>
+                                                      <Font size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <DatePicker fx:id="endDatePicker" maxWidth="1.7976931348623157E308" promptText="Select date" style="-fx-background-color: #F2F2F7; -fx-border-color: transparent; -fx-border-radius: 10; -fx-background-radius: 10;" />
+                                                <HBox spacing="8.0">
+                                                   <children>
+                                                      <TextField fx:id="endTimeField" prefWidth="80.0" promptText="HH:MM" style="-fx-background-color: #F2F2F7; -fx-border-color: transparent; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10; -fx-font-size: 14;" />
+                                                      <ComboBox fx:id="endAmPmComboBox" prefWidth="70.0" promptText="AM/PM" style="-fx-background-color: #F2F2F7; -fx-border-color: transparent; -fx-border-radius: 10; -fx-background-radius: 10;" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox spacing="15.0">
+                                 <children>
+                                    <Label text="Participants *" textFill="#1C1C1E">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <VBox spacing="12.0" style="-fx-background-color: #F2F2F7; -fx-background-radius: 10;">
+                                       <children>
+                                          <HBox spacing="30.0">
+                                             <children>
+                                                <RadioButton fx:id="unlimitedParticipantsRadio" mnemonicParsing="false" text="Unlimited participants" textFill="#1C1C1E">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                   <toggleGroup>
+                                                      <ToggleGroup fx:id="participantToggle" />
+                                                   </toggleGroup>
+                                                </RadioButton>
+                                                <RadioButton fx:id="limitedParticipantsRadio" mnemonicParsing="false" text="Limited participants" textFill="#1C1C1E" toggleGroup="$participantToggle">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </RadioButton>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                             <children>
+                                                <Label text="Max participants:" textFill="#8E8E93">
+                                                   <font>
+                                                      <Font size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <Spinner fx:id="maxParticipantsSpinner" disable="true" prefWidth="100.0" style="-fx-background-color: white; -fx-border-color: transparent; -fx-border-radius: 8; -fx-background-radius: 8;" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                              <HBox spacing="20.0">
+                                 <children>
+                                    <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Platform *" textFill="#1C1C1E">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <ComboBox fx:id="platformComboBox" maxWidth="1.7976931348623157E308" promptText="Select platform" style="-fx-background-color: #F2F2F7; -fx-border-color: transparent; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 15;" />
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Location/Address *" textFill="#1C1C1E">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="addressField" promptText="Enter event location" style="-fx-background-color: #F2F2F7; -fx-border-color: transparent; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 15; -fx-font-size: 14;" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                                 <children>
+                                    <Button fx:id="cancelButton" mnemonicParsing="false"  style="-fx-background-color: #E5E5EA; -fx-text-fill: #8E8E93; -fx-border-width: 0; -fx-border-radius: 25; -fx-background-radius: 25; -fx-cursor: hand;" text="Cancel">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="12.0" left="25.0" right="25.0" top="12.0" />
+                                       </padding>
+                                    </Button>
+                                    <Button fx:id="createEventButton" mnemonicParsing="false"  style="-fx-background-color: #667eea; -fx-text-fill: white; -fx-border-width: 0; -fx-background-radius: 25; -fx-cursor: hand; -fx-font-weight: bold;" text="Create Event">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
+                                       </padding>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
