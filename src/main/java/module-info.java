@@ -9,6 +9,7 @@ module com.mfx.eventmanagement {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires MaterialFX;
 
     opens com.mfx.eventmanagement to javafx.fxml;
     exports com.mfx.eventmanagement;
