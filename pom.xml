@@ -25,6 +25,16 @@
           <artifactId>materialfx</artifactId>
           <version>11.12.0</version>
       </dependency>
+      <dependency>
+          <groupId>com.calendarfx</groupId>
+          <artifactId>view</artifactId>
+          <version>12.0.1</version>
+      </dependency>
+      <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-simple</artifactId>
+          <version>2.0.13</version> <!-- Latest as of 2025 -->
+      </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-fxml</artifactId>
