@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700.0" prefWidth="500.0" style="-fx-background-color: #F2F2F7; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mfx.eventmanagement.EventCreate">
+    <children>
+        <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="400.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+            <children>
+                <Label text="Create New Event" textFill="#333333">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                    </VBox.margin>
+                </Label>
+                <VBox spacing="5.0">
+                    <Label text="Event Name" textFill="#555555" />
+                    <TextField fx:id="eventNameField" prefHeight="34.0" prefWidth="460.0" promptText="Enter event name" />
+                </VBox>
+                <VBox spacing="5.0">
+                   <VBox spacing="5.0">
+                       <Label text="Description" textFill="#555555" />
+                   </VBox>
+                    <TextArea fx:id="descriptionArea" prefHeight="100.0" prefWidth="200.0" promptText="Enter event description" wrapText="true" />
+                    <Label text="Location" textFill="#555555" />
+                    <TextField fx:id="locationField" promptText="Enter location" />
+                </VBox>
+            <Pane prefHeight="86.0" prefWidth="460.0">
+               <children>
+                  <Label layoutX="1.0" layoutY="14.0" prefHeight="17.0" prefWidth="87.0" text="Start Date" />
+                  <MFXDatePicker layoutX="1.0" layoutY="35.0" />
+                  <Label layoutX="230.0" layoutY="14.0" text="End Date" />
+                  <MFXDatePicker layoutX="230.0" layoutY="35.0" prefHeight="38.0" />
+               </children>
+            </Pane>
+            <Pane prefHeight="26.0" prefWidth="460.0">
+               <children>
+                  <Label layoutY="6.0" prefHeight="17.0" prefWidth="87.0" text="Start Time" />
+                  <Label layoutX="230.0" layoutY="6.0" prefHeight="17.0" prefWidth="81.0" text="End Time" />
+               </children>
+            </Pane>
+            <Pane prefHeight="73.0" prefWidth="460.0">
+               <children>
+                  <Label layoutX="1.0" layoutY="6.0" prefHeight="17.0" prefWidth="71.0" text="Event Type" />
+                  <MFXComboBox fx:id="eventTypeComboBox" layoutY="31.0" prefHeight="39.0" prefWidth="460.0" />
+               </children>
+            </Pane>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
