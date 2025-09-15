@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
 <?import javafx.geometry.Insets?>
@@ -28,7 +29,7 @@
                 </Label>
                 <VBox spacing="5.0">
                     <Label text="Event Name" textFill="#555555" />
-                    <TextField fx:id="eventNameField" prefHeight="34.0" prefWidth="460.0" promptText="Enter event name" />
+                    <TextField fx:id="Eventname" prefHeight="34.0" prefWidth="460.0" promptText="Enter event name" />
                 </VBox>
                 <VBox spacing="5.0">
                    <VBox spacing="5.0">
@@ -41,9 +42,9 @@
             <Pane prefHeight="86.0" prefWidth="460.0">
                <children>
                   <Label layoutX="1.0" layoutY="14.0" prefHeight="17.0" prefWidth="87.0" text="Start Date" />
-                  <MFXDatePicker layoutX="1.0" layoutY="35.0" />
+                  <MFXDatePicker fx:id="startDatePicker" layoutX="1.0" layoutY="35.0" />
                   <Label layoutX="230.0" layoutY="14.0" text="End Date" />
-                  <MFXDatePicker layoutX="230.0" layoutY="35.0" prefHeight="38.0" />
+                  <MFXDatePicker fx:id="endDatePicker" layoutX="230.0" layoutY="35.0" prefHeight="38.0" />
                </children>
             </Pane>
             <Pane prefHeight="26.0" prefWidth="460.0">
@@ -56,6 +57,11 @@
                <children>
                   <Label layoutX="1.0" layoutY="6.0" prefHeight="17.0" prefWidth="71.0" text="Event Type" />
                   <MFXComboBox fx:id="eventTypeComboBox" layoutY="31.0" prefHeight="39.0" prefWidth="460.0" />
+               </children>
+            </Pane>
+            <Pane prefHeight="130.0" prefWidth="460.0">
+               <children>
+                  <MFXButton fx:id="eventCreatebtn" layoutX="186.0" layoutY="77.0" onAction="#handleCreateButton" prefHeight="39.0" prefWidth="71.0" text="Create" />
                </children>
             </Pane>
             </children>

@@ -16,6 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.application.Application;
+import javafx.scene.control.ListCell;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,7 +24,6 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ListCell;
 
 
 public class MainFrame implements Initializable {
@@ -44,6 +44,8 @@ public class MainFrame implements Initializable {
     @FXML
     private ListView<Event> eventListView;
 
+    // Use an ObservableList to hold the events
+    private ObservableList<Event> events = FXCollections.observableArrayList();
 
     //toggle state
     private boolean isExpanded = true;
@@ -60,10 +62,10 @@ public class MainFrame implements Initializable {
     /**
      * Initializes the controller. This method is called after the FXML has been loaded.
      */
-    @FXML
-    public void initialize() {
-        // Create some sample data to test the ListView
-        ObservableList<Event> events = FXCollections.observableArrayList(
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Add initial sample events to the already initialized list
+        events.addAll(
                 new Event("Project Meeting", "Work", LocalDate.of(2025, 1, 15), LocalDate.of(2025, 1, 15)),
                 new Event("Team Lunch", "Social", LocalDate.of(2025, 1, 20), LocalDate.of(2025, 1, 20)),
                 new Event("Client Workshop", "Training", LocalDate.of(2025, 2, 5), LocalDate.of(2025, 2, 7))
@@ -92,16 +94,26 @@ public class MainFrame implements Initializable {
                             // Handle the error gracefully
                         }
                     }
-
-
-
+                    if (controller != null) {
+                        controller.setEventData(event);
+                    }
                     setGraphic(eventCard);
                 }
             }
         });
+        System.out.println("Dashboard Controller initialized.");
     }
 
-
+    /**
+     * Adds a new event to the ListView's observable list.
+     * This method is called by the EventCreate controller.
+     * @param newEvent The new Event object to add.
+     */
+    public void addEventToList(Event newEvent) {
+        if (newEvent != null) {
+            events.add(newEvent);
+        }
+    }
 
     /**
      * Toggles the visibility and width of the sidebar.
@@ -116,13 +128,17 @@ public class MainFrame implements Initializable {
         }
         isExpanded = !isExpanded;
     }
-       // action for CreateEvent Button
+    // action for CreateEvent Button
     @FXML
     private void actionCreateButton(ActionEvent event){
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("EventCreateFix-v2.fxml"));
             Parent root = loader.load();
+
+            // Get the controller for the popup and set a reference to this MainFrame
+            EventCreate popupController = loader.getController();
+            popupController.setMainFrameController(this);
 
             Stage popupStage = new Stage();
             // Set the new stage to be a popup/dialog window
@@ -175,11 +191,5 @@ public class MainFrame implements Initializable {
      */
     private void expandSidebar() {
         sidebarBorderPane.setPrefWidth(EXPANDED_WIDTH);
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        System.out.println("Dashboard Controller initialized.");
     }
 }
