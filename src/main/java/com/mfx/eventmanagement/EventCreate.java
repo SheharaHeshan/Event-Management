@@ -64,8 +64,8 @@ public class EventCreate {
     private void handleCreateButton(ActionEvent event) {
         // 1. Extract data from the form fields
         String name = Eventname.getText();
-        LocalDate startDate = startDatePicker.getDate();
-        LocalDate endDate = endDatePicker.getDate();
+        LocalDate startDate = startDatePicker.getCurrentDate();
+        LocalDate endDate = endDatePicker.getCurrentDate();
         String eventType = String.valueOf(eventTypeComboBox.getRotate());
 
         // Basic validation: Check if required fields are filled

@@ -4,13 +4,71 @@
 <?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mfx.eventmanagement.MainFrame">
     <left>
-        <VBox fx:id="sidebarBorderPane" minWidth="50.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
+        <VBox fx:id="sidebarVBox" minWidth="50.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #63589f;" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="20.0" />
+            </padding>
+            <children>
+<!--                onAction="#handleDashboardAction"-->
+                <MFXButton fx:id="dashboardButton" alignment="CENTER_LEFT" onAction="#handleDashboardAction" prefHeight="50.0" prefWidth="200.0" rippleColor="#e4c7f1" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14; -fx-border-width: 0; -fx-background-radius: 0; -fx-cursor: hand;" text="Dashboard">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@icons/dashboard.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </MFXButton>
+<!--                onAction="#handleEventAction"-->
+                <MFXButton fx:id="eventButton" alignment="CENTER_LEFT" onAction="#handleEventAction" prefHeight="50.0" prefWidth="200.0" rippleColor="#e4c7f1" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14; -fx-border-width: 0; -fx-background-radius: 0; -fx-cursor: hand;" text="Events">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@icons/event-black.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </MFXButton>
+<!--                onAction="#handleScheduleAction"-->
+                <MFXButton fx:id="scheduleButton" alignment="CENTER_LEFT" onAction="#handleScheduleAction" prefHeight="50.0" prefWidth="200.0" rippleColor="#e4c7f1" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14; -fx-border-width: 0; -fx-background-radius: 0; -fx-cursor: hand;" text="Schedule">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@icons/shedule-black.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </MFXButton>
+<!--                onAction="#handleAttendanceAction"-->
+                <MFXButton fx:id="attendanceButton" alignment="CENTER_LEFT" onAction="#handleAttendanceAction" prefHeight="50.0" prefWidth="200.0" rippleColor="#e4c7f1" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14; -fx-border-width: 0; -fx-background-radius: 0; -fx-cursor: hand;" text="Attendance" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@icons/attendance.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </MFXButton>
+<!--                onAction="#handleTeamAction"-->
+                <MFXButton fx:id="teamButton" alignment="CENTER_LEFT" onAction="#handleTeamAction" prefHeight="50.0" prefWidth="200.0" rippleColor="#e4c7f1" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14; -fx-border-width: 0; -fx-background-radius: 0; -fx-cursor: hand;" text="Team" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@icons/team-black.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </MFXButton>
+            </children>
+        </VBox>
     </left>
     <top>
         <HBox fx:id="hboxpane" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #e7e7e7;" BorderPane.alignment="CENTER">
@@ -30,17 +88,13 @@
                     <children>
                         <MFXButton fx:id="CreateButton" buttonType="RAISED" onAction="#actionCreateButton" prefHeight="40.0" prefWidth="100.0" rippleColor="#a84040" text="Create Event" />
                         <MFXButton fx:id="EditButton" buttonType="RAISED" lineSpacing="1.0" prefHeight="40.0" prefWidth="100.0" rippleColor="#d05959" text="Edit Event" />
-                        <MFXButton fx:id="PassShedule" buttonType="RAISED" onAction="#actionPassShedule" prefHeight="40.0" prefWidth="101.0" text="Shdule Event" />
+                        <MFXButton fx:id="PassShedule" buttonType="RAISED" onAction="#actionPassShedule" prefHeight="40.0" prefWidth="101.0" text="Schedule Event" />
                     </children>
                     <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </padding>
                 </HBox>
-                <ListView fx:id="eventListView" prefHeight="567.0" prefWidth="824.0" VBox.vgrow="ALWAYS">
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                </ListView>
+                <ListView fx:id="eventListView" prefHeight="567.0" prefWidth="824.0" VBox.vgrow="ALWAYS" />
             </children>
         </VBox>
     </center>

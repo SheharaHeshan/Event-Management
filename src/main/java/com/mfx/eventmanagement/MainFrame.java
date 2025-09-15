@@ -32,7 +32,7 @@ public class MainFrame implements Initializable {
     private BorderPane root;
 
     @FXML
-    private VBox sidebarBorderPane;
+    private VBox sidebarVBox;
     @FXML
     private HBox hboxpane;
     @FXML
@@ -43,6 +43,18 @@ public class MainFrame implements Initializable {
     private MFXButton PassShedule;
     @FXML
     private ListView<Event> eventListView;
+
+    //buttons in sidebar
+    @FXML
+    private MFXButton dashboardButton;
+    @FXML
+    private MFXButton eventButton;
+    @FXML
+    private MFXButton scheduleButton;
+    @FXML
+    private MFXButton attendanceButton;
+    @FXML
+    private MFXButton teamButton;
 
     // Use an ObservableList to hold the events
     private ObservableList<Event> events = FXCollections.observableArrayList();
@@ -183,13 +195,68 @@ public class MainFrame implements Initializable {
      * Collapses the sidebar to a predefined width.
      */
     private void collapseSidebar() {
-        sidebarBorderPane.setPrefWidth(COLLAPSED_WIDTH);
+        sidebarVBox.setPrefWidth(COLLAPSED_WIDTH);
+        dashboardButton.setText("");
+        eventButton.setText("");
+        scheduleButton.setText("");
+        attendanceButton.setText("");
+        teamButton.setText("");
+
+        // Center the icons when collapsed
+        dashboardButton.setAlignment(javafx.geometry.Pos.CENTER);
+        eventButton.setAlignment(javafx.geometry.Pos.CENTER);
+        scheduleButton.setAlignment(javafx.geometry.Pos.CENTER);
+        attendanceButton.setAlignment(javafx.geometry.Pos.CENTER);
+        teamButton.setAlignment(javafx.geometry.Pos.CENTER);
     }
 
     /**
      * Expands the sidebar to its original width.
      */
     private void expandSidebar() {
-        sidebarBorderPane.setPrefWidth(EXPANDED_WIDTH);
+        sidebarVBox.setPrefWidth(EXPANDED_WIDTH);
+        dashboardButton.setText("Dashboard");
+        eventButton.setText("Events");
+        scheduleButton.setText("Schedule");
+        attendanceButton.setText("Attendance");
+        teamButton.setText("Team");
+
+        // Align text and icons to the left when expanded
+        dashboardButton.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+        eventButton.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+        scheduleButton.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+        attendanceButton.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+        teamButton.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+    }
+
+    //functions for click user buttons
+    @FXML
+    private void handleDashboardAction(ActionEvent event) {
+        // Add logic for the Event button here
+        System.out.println("Event button clicked!");
+    }
+
+    @FXML
+    private void handleEventAction(ActionEvent event) {
+        // Add logic for the Event button here
+        System.out.println("Event button clicked!");
+    }
+
+    @FXML
+    private void handleScheduleAction(ActionEvent event) {
+        // Add logic for the Schedule button here
+        System.out.println("Schedule button clicked!");
+    }
+
+    @FXML
+    private void handleAttendanceAction(ActionEvent event) {
+        // Add logic for the Attendance button here
+        System.out.println("Attendance button clicked!");
+    }
+
+    @FXML
+    private void handleTeamAction(ActionEvent event) {
+        // Add logic for the Team button here
+        System.out.println("Team button clicked!");
     }
 }

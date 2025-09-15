@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Event extends MainFrame {
+    @FXML
     private MFXButton CreateButton;
     @FXML
     private MFXComboBox eventTypeComboBox;
@@ -28,7 +29,7 @@ public class Event extends MainFrame {
     private void actionCreateButton(ActionEvent event){
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("EventCreate.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("EventCreateFix-v2.fxml"));
             Parent root = loader.load();
 
             Stage popupStage = new Stage();
