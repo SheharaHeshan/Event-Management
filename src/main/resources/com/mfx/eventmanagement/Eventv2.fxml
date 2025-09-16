@@ -3,7 +3,6 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -17,8 +16,7 @@
                 <Insets top="20.0" />
             </padding>
             <children>
-<!--                onAction="#handleDashboardAction"-->
-                <MFXButton fx:id="dashboardButton" alignment="CENTER_LEFT" onAction="#handleDashboardAction" prefHeight="50.0" prefWidth="200.0" rippleColor="#e4c7f1" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14; -fx-border-width: 0; -fx-background-radius: 0; -fx-cursor: hand;" text="Dashboard">
+                <MFXButton fx:id="dashboardButton" alignment="CENTER_LEFT"  prefHeight="50.0" prefWidth="200.0" rippleColor="#e4c7f1ff" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14; -fx-border-width: 0; -fx-background-radius: 0; -fx-cursor: hand;" text="Dashboard">
                     <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -27,8 +25,7 @@
                         </ImageView>
                     </graphic>
                 </MFXButton>
-<!--                onAction="#handleEventAction"-->
-                <MFXButton fx:id="eventButton" alignment="CENTER_LEFT" onAction="#handleEventAction" prefHeight="50.0" prefWidth="200.0" rippleColor="#e4c7f1" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14; -fx-border-width: 0; -fx-background-radius: 0; -fx-cursor: hand;" text="Events">
+                <MFXButton fx:id="eventButton" alignment="CENTER_LEFT"  prefHeight="50.0" prefWidth="200.0" rippleColor="#e4c7f1" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14; -fx-border-width: 0; -fx-background-radius: 0; -fx-cursor: hand;" text="Events">
                     <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -37,8 +34,7 @@
                         </ImageView>
                     </graphic>
                 </MFXButton>
-<!--                onAction="#handleScheduleAction"-->
-                <MFXButton fx:id="scheduleButton" alignment="CENTER_LEFT" onAction="#handleScheduleAction" prefHeight="50.0" prefWidth="200.0" rippleColor="#e4c7f1" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14; -fx-border-width: 0; -fx-background-radius: 0; -fx-cursor: hand;" text="Schedule">
+                <MFXButton fx:id="scheduleButton" alignment="CENTER_LEFT"  prefHeight="50.0" prefWidth="200.0" rippleColor="#e4c7f1" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14; -fx-border-width: 0; -fx-background-radius: 0; -fx-cursor: hand;" text="Schedule">
                     <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -47,8 +43,7 @@
                         </ImageView>
                     </graphic>
                 </MFXButton>
-<!--                onAction="#handleAttendanceAction"-->
-                <MFXButton fx:id="attendanceButton" alignment="CENTER_LEFT" onAction="#handleAttendanceAction" prefHeight="50.0" prefWidth="200.0" rippleColor="#e4c7f1" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14; -fx-border-width: 0; -fx-background-radius: 0; -fx-cursor: hand;" text="Attendance" textFill="WHITE">
+                <MFXButton fx:id="attendanceButton" alignment="CENTER_LEFT"  prefHeight="50.0" prefWidth="200.0" rippleColor="#e4c7f1" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14; -fx-border-width: 0; -fx-background-radius: 0; -fx-cursor: hand;" text="Attendance" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -57,8 +52,7 @@
                         </ImageView>
                     </graphic>
                 </MFXButton>
-<!--                onAction="#handleTeamAction"-->
-                <MFXButton fx:id="teamButton" alignment="CENTER_LEFT" onAction="#handleTeamAction" prefHeight="50.0" prefWidth="200.0" rippleColor="#e4c7f1" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14; -fx-border-width: 0; -fx-background-radius: 0; -fx-cursor: hand;" text="Team" textFill="WHITE">
+                <MFXButton fx:id="teamButton" alignment="CENTER_LEFT"  prefHeight="50.0" prefWidth="200.0" rippleColor="#e4c7f1" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14; -fx-border-width: 0; -fx-background-radius: 0; -fx-cursor: hand;" text="Team" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -94,7 +88,6 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </padding>
                 </HBox>
-                <ListView fx:id="eventListView" prefHeight="567.0" prefWidth="824.0" VBox.vgrow="ALWAYS" />
             </children>
         </VBox>
     </center>

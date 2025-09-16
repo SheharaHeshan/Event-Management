@@ -32,38 +32,38 @@
                     <TextField fx:id="Eventname" prefHeight="34.0" prefWidth="460.0" promptText="Enter event name" />
                 </VBox>
                 <VBox spacing="5.0">
-                   <VBox spacing="5.0">
-                       <Label text="Description" textFill="#555555" />
-                   </VBox>
+                    <VBox spacing="5.0">
+                        <Label text="Description" textFill="#555555" />
+                    </VBox>
                     <TextArea fx:id="descriptionArea" prefHeight="100.0" prefWidth="200.0" promptText="Enter event description" wrapText="true" />
                     <Label text="Location" textFill="#555555" />
                     <TextField fx:id="locationField" promptText="Enter location" />
                 </VBox>
-            <Pane prefHeight="86.0" prefWidth="460.0">
-               <children>
-                  <Label layoutX="1.0" layoutY="14.0" prefHeight="17.0" prefWidth="87.0" text="Start Date" />
-                  <MFXDatePicker fx:id="startDatePicker" layoutX="1.0" layoutY="35.0" />
-                  <Label layoutX="230.0" layoutY="14.0" text="End Date" />
-                  <MFXDatePicker fx:id="endDatePicker" layoutX="230.0" layoutY="35.0" prefHeight="38.0" />
-               </children>
-            </Pane>
-            <Pane prefHeight="26.0" prefWidth="460.0">
-               <children>
-                  <Label layoutY="6.0" prefHeight="17.0" prefWidth="87.0" text="Start Time" />
-                  <Label layoutX="230.0" layoutY="6.0" prefHeight="17.0" prefWidth="81.0" text="End Time" />
-               </children>
-            </Pane>
-            <Pane prefHeight="73.0" prefWidth="460.0">
-               <children>
-                  <Label layoutX="1.0" layoutY="6.0" prefHeight="17.0" prefWidth="71.0" text="Event Type" />
-                  <MFXComboBox fx:id="eventTypeComboBox" layoutY="31.0" prefHeight="39.0" prefWidth="460.0" />
-               </children>
-            </Pane>
-            <Pane prefHeight="130.0" prefWidth="460.0">
-               <children>
-                  <MFXButton fx:id="eventCreatebtn" layoutX="186.0" layoutY="77.0" onAction="#handleCreateButton" prefHeight="39.0" prefWidth="71.0" text="Create" />
-               </children>
-            </Pane>
+                <Pane prefHeight="86.0" prefWidth="460.0">
+                    <children>
+                        <Label layoutX="1.0" layoutY="14.0" prefHeight="17.0" prefWidth="87.0" text="Start Date" />
+                        <MFXDatePicker fx:id="startDatePicker" layoutX="1.0" layoutY="35.0" />
+                        <Label layoutX="240.0" layoutY="13.0" text="End Date" />
+                        <MFXDatePicker fx:id="endDatePicker" layoutX="240.0" layoutY="34.0" prefHeight="38.0" />
+                    </children>
+                </Pane>
+                <Pane prefHeight="26.0" prefWidth="460.0">
+                    <children>
+                        <Label layoutY="6.0" prefHeight="17.0" prefWidth="87.0" text="Start Time" />
+                        <Label layoutX="230.0" layoutY="6.0" prefHeight="17.0" prefWidth="81.0" text="End Time" />
+                    </children>
+                </Pane>
+                <Pane prefHeight="73.0" prefWidth="460.0">
+                    <children>
+                        <Label layoutX="1.0" layoutY="6.0" prefHeight="17.0" prefWidth="71.0" text="Event Type" />
+                        <MFXComboBox fx:id="eventTypeComboBox" layoutY="31.0" prefHeight="39.0" prefWidth="460.0" />
+                    </children>
+                </Pane>
+                <Pane prefHeight="130.0" prefWidth="460.0">
+                    <children>
+                        <MFXButton fx:id="eventCreatebtn" layoutX="186.0" layoutY="77.0" onAction="#handleCreateButton" prefHeight="39.0" prefWidth="71.0" text="Create" />
+                    </children>
+                </Pane>
             </children>
         </VBox>
     </children>

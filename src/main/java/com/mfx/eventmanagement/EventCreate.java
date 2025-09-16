@@ -64,8 +64,8 @@ public class EventCreate {
     private void handleCreateButton(ActionEvent event) {
         // 1. Extract data from the form fields
         String name = Eventname.getText();
-        LocalDate startDate = startDatePicker.getCurrentDate();
-        LocalDate endDate = endDatePicker.getCurrentDate();
+        LocalDate startDate = startDatePicker.getDate();
+        LocalDate endDate = endDatePicker.getDate();
         String eventType = String.valueOf(eventTypeComboBox.getRotate());
 
         // Basic validation: Check if required fields are filled
@@ -75,15 +75,15 @@ public class EventCreate {
             return;
         }
 
-        // 2. Create a new Event object using the extracted data
-        MainFrame.Event newEvent = new MainFrame.Event(name, eventType, startDate, endDate);
-
-        // 3. Pass the new event to the MainFrame controller
-        if (mainFrameController != null) {
-            mainFrameController.addEventToList(newEvent);
-        } else {
-            System.err.println("MainFrame controller not set. Cannot add event.");
-        }
+//        // 2. Create a new Event object using the extracted data
+//        MainFrame.Event newEvent = new MainFrame.Event(name, eventType, startDate, endDate);
+//
+//        // 3. Pass the new event to the MainFrame controller
+//        if (mainFrameController != null) {
+//            mainFrameController.addEventToList(newEvent);
+//        } else {
+//            System.err.println("MainFrame controller not set. Cannot add event.");
+//        }
 
         // 4. Close the popup window
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
