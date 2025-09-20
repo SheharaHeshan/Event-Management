@@ -17,6 +17,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.application.Application;
+import javafx.scene.control.SelectionMode;
 
 import javafx.scene.control.ListView; // Standard JavaFX ListView
 
@@ -72,6 +73,17 @@ public class MainFrame implements Initializable {
 
         // Bind the ListView's items to the ObservableList
         eventListView.setItems(events);
+
+        // Add a listener to handle selection
+        eventListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        eventListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                System.out.println("Selected Event: " + newValue.name());
+                // Here, you can get the selected item and update the UI accordingly.
+                // For example, you can enable an "Edit" button.
+            }
+        });
+
 
     }
 
