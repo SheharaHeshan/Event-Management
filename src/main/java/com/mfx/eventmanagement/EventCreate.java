@@ -55,7 +55,7 @@ public class EventCreate {
     @FXML
     public void initialize() {
         // Populate the ComboBox with event types
-        eventTypeComboBox.getItems().addAll("Work", "Social", "Training", "Other");
+        eventTypeComboBox.getItems().addAll("In-Person (Physical)", "Virtual (Online)", "Hybrid", "Other");
     }
 
     /**
