@@ -2,6 +2,8 @@ package com.mfx.eventmanagement;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXToggleButton;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +17,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.application.Application;
+
+import javafx.scene.control.ListView; // Standard JavaFX ListView
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -35,8 +40,8 @@ public class MainFrame implements Initializable {
     private MFXButton CreateButton;
     @FXML
     private MFXButton PassShedule;
-    // @FXML
-    // private ListView<Event> eventListView; // Removed
+     @FXML
+    private ListView<Event> eventListView;
 
     // buttons in sidebar
     @FXML
@@ -61,7 +66,27 @@ public class MainFrame implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("MainFrame Controller initialized.");
+
+        // Set the custom cell factory for the ListView
+        eventListView.setCellFactory(param -> new EventCardCell());
+
+        // Bind the ListView's items to the ObservableList
+        eventListView.setItems(events);
+
     }
+
+    // Use an ObservableList to hold event data
+    private final ObservableList<Event> events = FXCollections.observableArrayList();
+
+
+
+    // This method is called from the EventCreate controller
+    public void addEventToList(Event newEvent) {
+        // Add the new Event object to the ObservableList
+        events.add(0, newEvent); // Add to the top of the list
+    }
+
+
 
     /**
      * Toggles the visibility and width of the sidebar.
@@ -80,18 +105,19 @@ public class MainFrame implements Initializable {
     @FXML
     private void actionCreateButton(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("EventCreateFix-v2.fxml"));
-            Parent root = loader.load();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EventCreateFix-v2.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(fxmlLoader.load()));
 
-            Stage popupStage = new Stage();
-            popupStage.initModality(Modality.APPLICATION_MODAL);
-            popupStage.initOwner(((Node) event.getSource()).getScene().getWindow());
+            // Get the controller of the newly created pop-up
+            EventCreate eventCreateController = fxmlLoader.getController();
 
-            Scene scene = new Scene(root);
-            popupStage.setScene(scene);
-            popupStage.setTitle("Create Event");
-            popupStage.showAndWait();
+            // Crucial step: Pass a reference to THIS MainFrame instance to the pop-up controller
+            eventCreateController.setMainFrameController(this);
 
+            stage.setTitle("Create New Event");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

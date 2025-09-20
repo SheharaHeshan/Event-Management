@@ -25,6 +25,9 @@ public class EventCreate {
     private TextArea descriptionArea;
 
     @FXML
+    private TextField locationField; // Added to match the FXML
+
+    @FXML
     private MFXDatePicker startDatePicker;
 
     @FXML
@@ -64,26 +67,29 @@ public class EventCreate {
     private void handleCreateButton(ActionEvent event) {
         // 1. Extract data from the form fields
         String name = Eventname.getText();
+        String description = descriptionArea.getText();
+        String location = locationField.getText(); // Get text from location field
         LocalDate startDate = startDatePicker.getDate();
         LocalDate endDate = endDatePicker.getDate();
-        String eventType = String.valueOf(eventTypeComboBox.getRotate());
+        String eventType = eventTypeComboBox.getSelectedValue(); // Correctly get the selected value
 
         // Basic validation: Check if required fields are filled
         if (name.isEmpty() || startDate == null || endDate == null || eventType == null) {
-            // For now, we will print an error. In a final application, you would show a popup.
             System.err.println("Validation Error: Please fill in all required fields.");
+            // In a real application, you'd show a user-friendly alert
             return;
         }
 
-//        // 2. Create a new Event object using the extracted data
-//        MainFrame.Event newEvent = new MainFrame.Event(name, eventType, startDate, endDate);
-//
-//        // 3. Pass the new event to the MainFrame controller
-//        if (mainFrameController != null) {
-//            mainFrameController.addEventToList(newEvent);
-//        } else {
-//            System.err.println("MainFrame controller not set. Cannot add event.");
-//        }
+        // 2. Create a new Event object using the extracted data
+        // Assuming MainFrame.Event is a record or class with appropriate constructor
+        Event newEvent = new Event(name, description, location, startDate, endDate, eventType);
+
+        // 3. Pass the new event to the MainFrame controller
+        if (mainFrameController != null) {
+            mainFrameController.addEventToList(newEvent);
+        } else {
+            System.err.println("MainFrame controller not set. Cannot add event.");
+        }
 
         // 4. Close the popup window
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

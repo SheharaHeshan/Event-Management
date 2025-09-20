@@ -1,46 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="550.0" spacing="5.0" style="-fx-background-color: #b998dd; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 15, 0, 0, 8); -fx-padding: 15;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="eventCard" alignment="TOP_LEFT" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mfx.eventmanagement.EventCardController">
     <children>
-        <Label fx:id="eventNameLabel" style="-fx-font-weight: bold; -fx-border-radius: 10;" text="Event Name" textFill="#212529">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </Label>
-        <Label fx:id="eventTypeLabel" text="Event Type" textFill="#6c757d">
-            <font>
-                <Font size="14.0" />
-            </font>
-        </Label>
-        <HBox alignment="CENTER_LEFT" spacing="20.0">
+        <VBox spacing="5.0" VBox.vgrow="ALWAYS">
             <children>
-                <Label fx:id="startDateLabel" text="Start Date: 2025-01-01" textFill="#495057">
+                <HBox alignment="CENTER_LEFT" spacing="10.0" VBox.vgrow="NEVER">
+                    <children>
+                        <Label fx:id="eventNameLabel" style="-fx-font-weight: bold;" text="Event Name" textFill="#333333" HBox.hgrow="ALWAYS">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Pane prefHeight="17.0" prefWidth="22.0" HBox.hgrow="SOMETIMES">
+                            <children>
+                                <Circle fx:id="statusCircle" fill="green" layoutX="8.0" layoutY="14.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+                            </children>
+                        </Pane>
+                    </children>
+                </HBox>
+                <Label fx:id="eventDescriptionLabel" text="Description of the event goes here..." textFill="#555555" VBox.vgrow="SOMETIMES">
                     <font>
-                        <Font size="12.0" />
+                        <Font size="14.0" />
                     </font>
                 </Label>
-                <Label fx:id="endDateLabel" text="End Date: 2025-01-01" textFill="#495057">
-                    <font>
-                        <Font size="12.0" />
-                    </font>
-                </Label>
+                <HBox alignment="CENTER_LEFT" spacing="10.0" VBox.vgrow="NEVER">
+                    <children>
+                        <Label text="Dates:" textFill="#333333">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="eventDatesLabel" text="Start Date - End Date" textFill="#555555">
+                            <font>
+                                <Font size="12.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="10.0" VBox.vgrow="NEVER">
+                    <children>
+                        <Label text="Type:" textFill="#333333">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="eventTypeLabel" text="Event Type" textFill="#555555">
+                            <font>
+                                <Font size="12.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
             </children>
-        </HBox>
-        <Label fx:id="descriptionLabel" text="Description of the event goes here." wrapText="true">
+        </VBox>
+        <HBox alignment="CENTER_RIGHT" VBox.vgrow="NEVER">
+            <children>
+                <MFXButton fx:id="scheduleButton" text="Schedule" HBox.hgrow="ALWAYS" />
+            </children>
             <VBox.margin>
                 <Insets top="10.0" />
             </VBox.margin>
-        </Label>
-        <Label fx:id="priorityLabel" style="-fx-font-weight: bold;" text="Priority: High">
-            <VBox.margin>
-                <Insets top="5.0" />
-            </VBox.margin>
-        </Label>
+        </HBox>
     </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
 </VBox>
