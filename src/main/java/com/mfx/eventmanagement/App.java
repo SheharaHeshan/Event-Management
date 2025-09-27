@@ -16,9 +16,9 @@ public class App extends Application {
         this.primaryStage = primaryStage;
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Eventv2.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MainFrame.fxml"));
             BorderPane root = loader.load();
-            MainFrame controller = loader.getController();
+            MainFrameController controller = loader.getController();
 
             if (controller != null) {
                 System.out.println("✅ MainFrame Controller loaded successfully.");

@@ -15,7 +15,16 @@ module com.mfx.eventmanagement {
     requires javafx.base;
     requires javafx.graphics;
     requires MaterialFX;
+    requires jakarta.mail;
+
+    requires com.dlsc.gemsfx;
+    requires java.sql;
+    requires jfxtras.controls;
+    //requires com.mfx.eventmanagement;
 
     opens com.mfx.eventmanagement to javafx.fxml;
     exports com.mfx.eventmanagement;
+
+
+
 }

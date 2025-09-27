@@ -1,0 +1,53 @@
+.root {
+    -fx-background-color: #F0F2F5;
+}
+
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+.title {
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1976D2;
+}
+
+.link {
+    -fx-text-fill: #1976D2;
+    -fx-underline: true;
+}
+
+.social-button {
+    -fx-background-color: #E8EAF6;
+    -fx-background-radius: 100;
+    -fx-pref-width: 40;
+    -fx-pref-height: 40;
+    -fx-padding: 0;
+}
+
+.sign-up-button {
+    -fx-background-color: #1E88E5;
+    -fx-background-radius: 10;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-pref-width: 150;
+    -fx-pref-height: 40;
+}
+
+.sign-in-button {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #1E88E5;
+    -fx-border-radius: 10;
+    -fx-text-fill: #1E88E5;
+    -fx-font-weight: bold;
+    -fx-pref-width: 150;
+    -fx-pref-height: 40;
+}
+
+.image-pane {
+    -fx-background-color: #E3F2FD;
+    -fx-background-radius: 0 15 15 0;
+}

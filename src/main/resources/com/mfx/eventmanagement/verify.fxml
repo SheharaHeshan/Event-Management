@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="768.0" minWidth="1024.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mfx.eventmanagement.OtpController">
+   <children>
+      <Text layoutX="532.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check your e-mail" textAlignment="CENTER" wrappingWidth="398.7366943359375">
+         <font>
+            <Font name="Roboto Black" size="34.0" />
+         </font>
+      </Text>
+      <Text layoutX="579.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="We've sent an email to you. It will expire shortly, so please verify it right now." textAlignment="CENTER" wrappingWidth="303.13671875">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="671.0" fitWidth="445.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@stock-img/verify.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="otp1" layoutX="510.0" layoutY="363.0" minHeight="40.0" minWidth="40.0" prefHeight="60.0" prefWidth="60.0" />
+      <TextField fx:id="otp2" layoutX="594.0" layoutY="363.0" minHeight="40.0" minWidth="40.0" prefHeight="60.0" prefWidth="60.0">
+         <opaqueInsets>
+            <Insets left="20.0" />
+         </opaqueInsets>
+      </TextField>
+      <TextField fx:id="otp3" layoutX="678.0" layoutY="363.0" minHeight="40.0" minWidth="40.0" prefHeight="60.0" prefWidth="60.0">
+         <opaqueInsets>
+            <Insets left="20.0" />
+         </opaqueInsets>
+      </TextField>
+      <TextField fx:id="otp4" layoutX="760.0" layoutY="363.0" minHeight="40.0" minWidth="40.0" prefHeight="60.0" prefWidth="60.0">
+         <opaqueInsets>
+            <Insets left="20.0" />
+         </opaqueInsets>
+      </TextField>
+      <TextField fx:id="otp5" layoutX="843.0" layoutY="363.0" minHeight="40.0" minWidth="40.0" prefHeight="60.0" prefWidth="60.0">
+         <opaqueInsets>
+            <Insets left="20.0" />
+         </opaqueInsets>
+      </TextField>
+      <TextField fx:id="otp6" layoutX="924.0" layoutY="363.0" minHeight="40.0" minWidth="40.0" prefHeight="60.0" prefWidth="60.0">
+         <opaqueInsets>
+            <Insets left="20.0" />
+         </opaqueInsets>
+      </TextField>
+      <MFXButton fx:id="verifybtn" buttonType="RAISED" layoutX="659.0" layoutY="488.0" onAction="#handleVerify" prefHeight="53.0" prefWidth="176.0" text="Verify" />
+   </children>
+</AnchorPane>

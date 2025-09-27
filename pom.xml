@@ -36,21 +36,36 @@
             <artifactId>javafx-base</artifactId>
             <version>${javafx.version}</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>io.github.palexdev</groupId>-->
-<!--            <artifactId>materialfx</artifactId>-->
-<!--            <version>11.12.0</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>io.github.palexdev</groupId>
+            <artifactId>materialfx</artifactId>
+            <version>11.12.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.jfxtras/jfxtras-controls -->
+        <dependency>
+            <groupId>org.jfxtras</groupId>
+            <artifactId>jfxtras-controls</artifactId>
+            <version>17-r1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+            <version>2.0.1</version> <!-- Latest stable as of 2025; check for updates via IntelliJ's Maven tool -->
+        </dependency>
+
         <dependency>
             <groupId>io.github.palexdev</groupId>
             <artifactId>mfxresources</artifactId>
             <version>11.12.2</version>
         </dependency>
-        <dependency>
-            <groupId>io.github.palexdev</groupId>
-            <artifactId>materialfx</artifactId>
-            <version>21.18.0-alpha</version>
-        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>io.github.palexdev</groupId>-->
+<!--            <artifactId>materialfx</artifactId>-->
+<!--            <version>21.18.0-alpha</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.calendarfx</groupId>
             <artifactId>view</artifactId>

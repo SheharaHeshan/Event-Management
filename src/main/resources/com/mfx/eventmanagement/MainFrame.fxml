@@ -1,27 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mfx.eventmanagement.MainFrame">
+<BorderPane fx:id="root" minHeight="768.0" minWidth="1024.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mfx.eventmanagement.MainFrameController">
     <left>
-        <VBox fx:id="sidebarBorderPane" minWidth="50.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
-    </left>
-    <top>
-        <HBox fx:id="hboxpane" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #e7e7e7;" BorderPane.alignment="CENTER">
+        <VBox fx:id="toggleBar" prefWidth="200.0" style="-fx-background-color: #2F4F4F;" BorderPane.alignment="CENTER">
             <children>
-                <MFXToggleButton fx:id="toggleSidebarButton" onAction="#toggleSidebar">
-               <HBox.margin>
-                  <Insets left="100.0" />
-               </HBox.margin></MFXToggleButton>
+                <HBox fx:id="menuToggleBox" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+                    <padding>
+                        <Insets left="10.0" right="10.0" />
+                    </padding>
+               <children>
+                <MFXButton fx:id="toggleButton" alignment="CENTER" graphicTextGap="0.0" onAction="#toggleAction" prefHeight="40.0" prefWidth="6.0" style="-fx-background-color: #4CAF50;">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@icons/toogle-black.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </MFXButton>
+               </children>
+                </HBox>
+                <VBox fx:id="menuContainer" spacing="5.0">
+                    <VBox.margin>
+                        <Insets left="20.0" top="10.0" />
+                    </VBox.margin>
+                </VBox>
+            <MFXButton fx:id="Homepass" prefHeight="42.0" prefWidth="185.0" text="Home">
+               <VBox.margin>
+                  <Insets left="7.5" top="70.0" />
+               </VBox.margin>
+            </MFXButton>
+            <MFXButton fx:id="EventPass1" onAction="#loadEventMenu" prefHeight="42.0" prefWidth="185.0" text="Event">
+               <VBox.margin>
+                  <Insets left="7.5" top="10.0" />
+               </VBox.margin>
+            </MFXButton>
+            <MFXButton fx:id="shedulepass" prefHeight="42.0" prefWidth="185.0" text="Shedule">
+               <VBox.margin>
+                  <Insets left="7.5" top="10.0" />
+               </VBox.margin>
+            </MFXButton>
+            <MFXButton fx:id="attendencepass" prefHeight="42.0" prefWidth="185.0" text="Attendence">
+               <VBox.margin>
+                  <Insets left="7.5" top="10.0" />
+               </VBox.margin>
+            </MFXButton>
+            <MFXButton fx:id="teampass" prefHeight="42.0" prefWidth="185.0" text="Team">
+               <VBox.margin>
+                  <Insets left="7.5" top="10.0" />
+               </VBox.margin>
+            </MFXButton>
             </children>
-        </HBox>
-    </top>
-    <center>
-        <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-    </center>
+        </VBox>
+    </left>
 </BorderPane>

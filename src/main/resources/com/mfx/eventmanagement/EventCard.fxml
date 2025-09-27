@@ -1,77 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<VBox fx:id="eventCard" alignment="TOP_LEFT" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mfx.eventmanagement.EventCardController">
-    <children>
-        <VBox spacing="5.0" VBox.vgrow="ALWAYS">
-            <children>
-                <HBox alignment="CENTER_LEFT" spacing="10.0" VBox.vgrow="NEVER">
-                    <children>
-                        <Label fx:id="eventNameLabel" style="-fx-font-weight: bold;" text="Event Name" textFill="#333333" HBox.hgrow="ALWAYS">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Label>
-                        <Pane prefHeight="17.0" prefWidth="22.0" HBox.hgrow="SOMETIMES">
-                            <children>
-                                <Circle fx:id="statusCircle" fill="green" layoutX="8.0" layoutY="14.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-                            </children>
-                        </Pane>
-                    </children>
-                </HBox>
-                <Label fx:id="eventDescriptionLabel" text="Description of the event goes here..." textFill="#555555" VBox.vgrow="SOMETIMES">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-                <HBox alignment="CENTER_LEFT" spacing="10.0" VBox.vgrow="NEVER">
-                    <children>
-                        <Label text="Dates:" textFill="#333333">
-                            <font>
-                                <Font name="System Bold" size="12.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="eventDatesLabel" text="Start Date - End Date" textFill="#555555">
-                            <font>
-                                <Font size="12.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </HBox>
-                <HBox alignment="CENTER_LEFT" spacing="10.0" VBox.vgrow="NEVER">
-                    <children>
-                        <Label text="Type:" textFill="#333333">
-                            <font>
-                                <Font name="System Bold" size="12.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="eventTypeLabel" text="Event Type" textFill="#555555">
-                            <font>
-                                <Font size="12.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </HBox>
-            </children>
-        </VBox>
-        <HBox alignment="CENTER_RIGHT" VBox.vgrow="NEVER">
-            <children>
-                <MFXButton fx:id="scheduleButton" text="Schedule" HBox.hgrow="ALWAYS" />
-            </children>
-            <VBox.margin>
-                <Insets top="10.0" />
-            </VBox.margin>
-        </HBox>
-    </children>
-    <padding>
-        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-    </padding>
-</VBox>
+<AnchorPane minWidth="950.0" prefHeight="113.0" prefWidth="950.0" style="-fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mfx.eventmanagement.EventCardController">
+   <children>
+      <Label fx:id="EventLabel" layoutX="7.0" layoutY="7.0" prefHeight="38.0" prefWidth="170.0" style="-fx-border-color: black;" text="Event" />
+      <Label fx:id="StartDateLabel" layoutX="189.0" layoutY="7.0" prefHeight="38.0" prefWidth="198.0" style="-fx-border-color: black;" text="Start Date" />
+      <Label fx:id="StartTimeLabel" layoutX="189.0" layoutY="57.0" prefHeight="38.0" prefWidth="198.0" style="-fx-border-color: black;" text="Start Time" />
+      <Label fx:id="EndDateLabel" layoutX="396.0" layoutY="7.0" prefHeight="38.0" prefWidth="198.0" style="-fx-border-color: black;" text="End Date" />
+      <Label fx:id="EndTimeLabel" layoutX="396.0" layoutY="57.0" prefHeight="38.0" prefWidth="198.0" style="-fx-border-color: black;" text="End Time" />
+      <Label fx:id="AttendenceLable" layoutX="603.0" layoutY="7.0" prefHeight="38.0" prefWidth="82.0" style="-fx-border-color: black;" text="Attendence" />
+      <Label fx:id="StatusLable" layoutX="696.0" layoutY="7.0" prefHeight="38.0" prefWidth="118.0" style="-fx-border-color: black;" text="Status" />
+       <MFXButton fx:id="EditBtn" layoutX="832.0" layoutY="10.0" prefHeight="35.0" prefWidth="35.0">
+           <graphic>
+               <ImageView id="edit-btn" fx:id="imgedit" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" styleClass="mfx-button">
+                   <image>
+                       <Image url="@icons/Event/edit.png" />
+                   </image>
+               </ImageView>
+           </graphic>
+       </MFXButton>
+    <MFXButton fx:id="DelBtn" layoutX="881.0" layoutY="10.0" prefHeight="35.0" prefWidth="35.0" text="Button">
+        <graphic>
+            <ImageView fx:id="imgdel" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@icons/Event/delete.png" />
+                </image>
+            </ImageView>
+        </graphic>
+    </MFXButton>
+   </children>
+</AnchorPane>
