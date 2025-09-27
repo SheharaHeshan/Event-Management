@@ -17,6 +17,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.layout.AnchorPane; // EventCard is an AnchorPane
 import java.io.IOException;
+import java.util.List;
 
 public class EventController extends MainFrameController {
 
@@ -24,6 +25,35 @@ public class EventController extends MainFrameController {
     private MFXButton CreateButton;
     @FXML
     private MFXListView<AnchorPane> eventList; // Use AnchorPane as the list item type
+
+    private DatabaseManager dbManager = new DatabaseManager(); // Initialize DB Manager
+
+    /**
+     * Initializes the controller. This runs when the FXML is loaded.
+     */
+    @FXML
+    public void initialize() {
+        //   Load all events when the application starts
+        loadInitialEvents();
+    }
+
+    /**
+     * Loads all saved events from the database and displays them in the list view.
+     */
+    public void loadInitialEvents() {
+        // Clear any existing items (useful if calling this to refresh)
+        eventList.getItems().clear();
+
+        // Load data from the database
+        List<EventDataStore> savedEvents = dbManager.loadAllEvents();
+
+        // Iterate through the list and create a card for each event
+        for (EventDataStore event : savedEvents) {
+            loadEventCardToListView(event);
+        }
+    }
+
+
 
     /**
      * Dynamically loads EventCard.fxml, populates its labels with the event data,

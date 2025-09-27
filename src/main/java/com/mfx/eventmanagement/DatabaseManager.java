@@ -1,11 +1,10 @@
 package com.mfx.eventmanagement;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseManager {
 
@@ -60,5 +59,45 @@ public class DatabaseManager {
             e.printStackTrace();
             return false;
         }
+    }
+
+    //Method to Load All Events from Database
+
+    public List<EventDataStore> loadAllEvents() {
+        List<EventDataStore> events = new ArrayList<>();
+        // Select all columns needed for the EventDataStore constructor
+        String sql = "SELECT event_name, event_description, start_date, end_date, start_time, end_time, event_type, attendance_type FROM events ORDER BY start_date ASC";
+
+        try (Connection conn = getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                // Retrieve data from the current row
+                String name = rs.getString("event_name");
+                String description = rs.getString("event_description");
+
+                // Convert SQL Date/Time types to Java 8 Local types
+                LocalDate startDate = rs.getDate("start_date").toLocalDate();
+                LocalDate endDate = rs.getDate("end_date").toLocalDate();
+                LocalTime startTime = rs.getTime("start_time").toLocalTime();
+                LocalTime endTime = rs.getTime("end_time").toLocalTime();
+
+                String eventType = rs.getString("event_type");
+                String attendanceType = rs.getString("attendance_type");
+
+                // Create and add the EventDataStore object
+                EventDataStore event = new EventDataStore(
+                        name, description, startDate, endDate,
+                        startTime, endTime, eventType, attendanceType
+                );
+                events.add(event);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error loading events from database: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return events;
     }
 }
