@@ -1,6 +1,8 @@
 package com.mfx.eventmanagement;
 
 import com.mfx.eventmanagement.EventCreateController;
+
+import com.mfx.eventmanagement.EventCreateController;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXListView;
 import io.github.palexdev.materialfx.controls.MFXRectangleToggleNode;
@@ -18,15 +20,28 @@ import javafx.stage.Stage;
 import javafx.scene.layout.AnchorPane; // EventCard is an AnchorPane
 import java.io.IOException;
 import java.util.List;
+import java.io.IOException;
+import java.util.List;
+import javafx.scene.layout.AnchorPane; // Ensure AnchorPane is imported
 
-public class EventController extends MainFrameController {
+public class EventController {
 
     @FXML
     private MFXButton CreateButton;
     @FXML
     private MFXListView<AnchorPane> eventList; // Use AnchorPane as the list item type
 
+    // A reference to the parent MainFrameController instance
+    private MainFrameController mainFrameController;
+
     private DatabaseManager dbManager = new DatabaseManager(); // Initialize DB Manager
+
+    // 💡 Add a setter method for the parent controller
+    public void setMainFrameController(MainFrameController mainFrameController) {
+        this.mainFrameController = mainFrameController;
+        // Load events now that we have the necessary reference
+        loadInitialEvents();
+    }
 
     /**
      * Initializes the controller. This runs when the FXML is loaded.
@@ -34,22 +49,19 @@ public class EventController extends MainFrameController {
     @FXML
     public void initialize() {
         //   Load all events when the application starts
-        loadInitialEvents();
+        //loadInitialEvents();
     }
 
     /**
      * Loads all saved events from the database and displays them in the list view.
      */
-    public void loadInitialEvents() {
-        // Clear any existing items (useful if calling this to refresh)
-        eventList.getItems().clear();
-
-        // Load data from the database
-        List<EventDataStore> savedEvents = dbManager.loadAllEvents();
-
-        // Iterate through the list and create a card for each event
-        for (EventDataStore event : savedEvents) {
-            loadEventCardToListView(event);
+    private void loadInitialEvents() {
+        if (dbManager != null) {
+            List<EventDataStore> events = dbManager.loadAllEvents();
+            for (EventDataStore event : events) {
+                // This is now called *after* mainFrameController is non-null
+                loadEventCardToListView(event);
+            }
         }
     }
 
@@ -69,8 +81,21 @@ public class EventController extends MainFrameController {
             // 2. Get the controller for the card
             EventCardController cardController = fxmlLoader.getController();
 
-            // 3. Set the data on the card's labels
-            cardController.setEventData(event);
+            //MainFrameController controllerToPass = this.mainFrameController != null ? this.mainFrameController : (MainFrameController) this;
+
+            cardController.setEventData(event, mainFrameController); // Pass the best available reference.
+
+
+            // 3. CRITICAL FIX: Pass the stored MainFrameController reference (which was set via the setter)
+            // NOT 'this', which refers to the EventController itself.
+            if (mainFrameController == null) {
+                System.err.println("FATAL ERROR: The MainFrameController reference was not set on EventController via setMainFrameController(). Cannot load card data.");
+                // We fall back to 'this' as a safeguard, but the app should fix the missing setter call.
+                cardController.setEventData(event, this.mainFrameController); // Fallback: pass itself, which only works if EventController IS the MainFrameController
+            } else {
+                // ✅ CORRECT: Pass the reference to the actual top-level controller.
+                cardController.setEventData(event, mainFrameController);
+            }
 
             // 4. Add the configured card to the MFXListView
             eventList.getItems().add(0, eventCard); // Add to the top of the list
@@ -92,7 +117,7 @@ public class EventController extends MainFrameController {
             EventCreateController eventCreateController = fxmlLoader.getController();
 
             // Crucial step: Pass a reference to THIS MainFrame instance to the pop-up controller
-            eventCreateController.setMainFrameController(this);
+            eventCreateController.setMainFrameController(this.mainFrameController);
 
             stage.setTitle("Create New Event");
             stage.initModality(Modality.APPLICATION_MODAL);

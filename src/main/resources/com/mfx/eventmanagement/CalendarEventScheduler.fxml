@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<AnchorPane fx:id="scheduleView" minHeight="768.0" minWidth="950.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mfx.eventmanagement.CalendarEventSchedulerController">
+    <children>
+        <Label fx:id="eventTitleLabel" layoutY="11.2" prefHeight="35.0" prefWidth="334.0" style="-fx-font-size: 18pt; -fx-font-weight: bold;" text="Calander FX " AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="11.0" />
+        <BorderPane fx:id="calendarContainer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+    </children>
+</AnchorPane>

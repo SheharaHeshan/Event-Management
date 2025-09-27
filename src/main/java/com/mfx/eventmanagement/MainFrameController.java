@@ -14,6 +14,11 @@ import javafx.scene.layout.HBox; // Import HBox to use it for layout
 import javafx.geometry.Pos; // Import Pos for alignment
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.Parent;
+import java.io.IOException;
 
 import java.io.IOException;
 // This is not the correct way to set margin, but is not needed in this solution
@@ -28,6 +33,9 @@ public class MainFrameController {
 
     @FXML
     private AnchorPane eventPane;
+
+    @FXML
+    private AnchorPane scheduleView;
 
     @FXML
     private BorderPane root;
@@ -54,11 +62,25 @@ public class MainFrameController {
     @FXML
     private void loadEventMenu(){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("EventMain.fxml"));
-            AnchorPane eventPane = loader.load();
-//            mainContent.getChildren().setAll(eventPane);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EventMain.fxml"));
+            Parent eventPane = fxmlLoader.load();
+            EventController controller = fxmlLoader.getController();
 
-            root.setCenter(eventPane);
+            if (controller != null) {
+                System.out.println("MainFrameController: Injecting 'this' into EventController.");
+                controller.setMainFrameController(this);
+            } else {
+                System.err.println("FATAL FXML ERROR: EventController is null after loading EventMain.fxml.");
+                return;
+            }
+
+            // 4. Set the loaded view (eventPane) to the center of the BorderPane (root)
+            // This should now work, as 'root' is initialized in MainFrameController.
+            if (root != null) {
+                root.setCenter(eventPane);
+            } else {
+                System.err.println("FATAL UI ERROR: BorderPane 'root' is null in MainFrameController. Check MainFrame.fxml and fx:id=\"root\".");
+            }
 
             // Set anchors to make the loaded pane fill the container
             AnchorPane.setTopAnchor(eventPane, 0.0);
@@ -74,26 +96,24 @@ public class MainFrameController {
         }
     }
 
-//    @FXML
-//    private void actionCreateButton(ActionEvent event) {
-//        try {
-//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EventCreate.fxml"));
-//            Stage stage = new Stage();
-//            stage.setScene(new Scene(fxmlLoader.load()));
-//
-//            // Get the controller of the newly created pop-up
-//            EventCreateController eventCreateController = fxmlLoader.getController();
-//
-//            // Crucial step: Pass a reference to THIS MainFrame instance to the pop-up controller
-//            eventCreateController.setMainFrameController(this);
-//
-//            stage.setTitle("Create New Event");
-//            stage.initModality(Modality.APPLICATION_MODAL);
-//            stage.show();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    /**
+     * Public method to load the CalendarScheduler view into the center of the MainFrame.
+     * @param event The main event data to schedule sub-events under.
+     */
+    public void loadScheduleView(EventDataStore event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("CalendarEventScheduler.fxml"));
+            Parent scheduleView = loader.load();
 
+            // Pass the EventDataStore to the new calendar controller
+            CalendarEventSchedulerController controller = loader.getController();
+            controller.setMainEvent(event);
+
+            root.setCenter(scheduleView); // Load the new view into the BorderPane center
+        } catch (IOException e) {
+            System.err.println("Failed to load CalendarScheduler.fxml: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
 }
