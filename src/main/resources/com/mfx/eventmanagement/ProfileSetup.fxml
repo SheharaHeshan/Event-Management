@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="768.0" minWidth="1024.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mfx.eventmanagement.ProfileSetupController">
+   <children>
+      <ImageView fitHeight="846.0" fitWidth="521.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="18.899999999999977" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="526.2" AnchorPane.topAnchor="18.0">
+         <image>
+            <Image url="@stock-img/profile-setup.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="513.0" layoutY="-1.0" prefHeight="770.0" prefWidth="514.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="513.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-1.0">
+         <children>
+            <Text layoutX="118.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile Setup" textAlignment="CENTER" wrappingWidth="288.13671875" AnchorPane.bottomAnchor="698.337890625" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="130.66328124999995" AnchorPane.topAnchor="104.083984375">
+               <font>
+                  <Font name="Roboto Medium" size="15.0" />
+               </font>
+            </Text>
+            <Label layoutX="50.0" layoutY="380.0" text="Gender">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="48.0" layoutY="468.0" text="Age">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Text layoutX="54.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ready to go" textAlignment="CENTER" wrappingWidth="423.13671875" AnchorPane.bottomAnchor="729.213671875" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="58.86328125" AnchorPane.topAnchor="37.251953125">
+               <font>
+                  <Font name="Roboto Black" size="45.0" />
+               </font>
+            </Text>
+            <MFXButton fx:id="finishbtn" buttonType="RAISED" layoutX="46.0" layoutY="716.0" onAction="#actionFinish" prefHeight="54.0" prefWidth="438.0" text="Finish">
+               <font>
+                  <Font name="Roboto Black" size="25.0" />
+               </font>
+            </MFXButton>
+            <Circle fill="DODGERBLUE" layoutX="157.0" layoutY="259.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+            <MFXComboBox layoutX="50.0" layoutY="408.0" prefHeight="40.0" prefWidth="438.0" />
+            <TextField layoutX="50.0" layoutY="493.0" prefHeight="40.0" prefWidth="153.0" />
+            <TextField layoutX="216.0" layoutY="493.0" prefHeight="40.0" prefWidth="271.0" />
+            <Label layoutX="216.0" layoutY="468.0" text="Phone Number">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextField layoutX="50.0" layoutY="577.0" prefHeight="103.0" prefWidth="438.0" />
+            <Label layoutX="48.0" layoutY="549.0" text="Address">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <MFXButton fx:id="profileuplaodbtn" buttonType="RAISED" layoutX="274.0" layoutY="296.0" prefHeight="40.0" prefWidth="154.0" text="Upload Now" />
+         </children>
+      </AnchorPane>
+      <MFXButton fx:id="regbackbtn" buttonType="RAISED" layoutX="47.0" layoutY="51.0" onAction="#actionBackToVerify" prefHeight="40.0" prefWidth="103.0" text="Back" />
+   </children>
+</AnchorPane>

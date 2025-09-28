@@ -159,6 +159,96 @@ public class DatabaseManager {
     }
 
     /**
+     * Checks if a user with the given email already exists in the database.
+     * @param email The email to check.
+     * @return true if the email exists, false otherwise.
+     */
+    public boolean isEmailRegistered(String email) {
+        String sql = "SELECT COUNT(*) FROM users WHERE email = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, email);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error checking email existence: " + e.getMessage());
+        }
+        return false;
+    }
+
+    public int registerUser(String firstName, String lastName, String email, String passwordHash) {
+        // SQL to insert the new user data. We skip optional fields for now.
+        String sql = "INSERT INTO users (first_name, last_name, email, password_hash) VALUES (?, ?, ?, ?)";
+        int generatedUserId = -1;
+
+        // 1. Check if email already exists
+        if (isEmailRegistered(email)) {
+            System.err.println("Registration failed: Email already in use.");
+            return -2; // Use a specific return code for email conflict
+        }
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            pstmt.setString(1, firstName);
+            pstmt.setString(2, lastName);
+            pstmt.setString(3, email);
+            pstmt.setString(4, passwordHash); // Store the hash
+
+            int affectedRows = pstmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                // Retrieve the auto-generated primary key (user_id)
+                try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        generatedUserId = rs.getInt(1);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error registering new user: " + e.getMessage());
+            generatedUserId = -1;
+        }
+        return generatedUserId;
+    }
+
+    public int registerVerifiedUser(String firstName, String lastName, String email, String passwordHash) {
+        // is_verified is set to 1 (true) upon final registration
+        String sql = "INSERT INTO users (first_name, last_name, email, password_hash, is_verified) VALUES (?, ?, ?, ?, 1)";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            pstmt.setString(1, firstName);
+            pstmt.setString(2, lastName);
+            pstmt.setString(3, email);
+            pstmt.setString(4, passwordHash);
+
+            int affectedRows = pstmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        return generatedKeys.getInt(1); // Return the generated user ID
+                    }
+                }
+            }
+            return -1; // Insertion failed
+        } catch (SQLException e) {
+            // Check for duplicate entry error (specific to MySQL/MariaDB for unique constraint)
+            if (e.getSQLState().startsWith("23")) {
+                System.err.println("Email already registered (constraint check): " + email);
+                return -2;
+            }
+            System.err.println("Error registering verified user: " + e.getMessage());
+            return -1;
+        }
+    }
+
+    /**
      * Inserts a new attendance record (for Add Manually feature).
      */
     public boolean insertAttendance(int eventId, String fullname, int age, String gender, String about, String address, String email, String phonenumber) {

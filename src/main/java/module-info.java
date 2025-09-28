@@ -20,6 +20,7 @@ module com.mfx.eventmanagement {
     requires com.dlsc.gemsfx;
     requires java.sql;
     requires jfxtras.controls;
+    requires java.desktop;
     //requires com.mfx.eventmanagement;
 
     opens com.mfx.eventmanagement to javafx.fxml;
