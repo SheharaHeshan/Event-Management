@@ -133,8 +133,8 @@ public class DatabaseManager {
      */
     public List<AttendanceRecordStore > getAttendanceByEventId(int eventId) {
         List<AttendanceRecordStore> attendanceList = new ArrayList<>();
-        String sql = "SELECT attendance_id, fullname, email, log_timestamp " +
-                "FROM attendance WHERE event_id = ?";
+        String sql = "SELECT attendance_id, fullname, email, log_timestamp, profile_picture_path " +
+                "FROM attendance WHERE event_id = ? ORDER BY log_timestamp DESC";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -146,6 +146,7 @@ public class DatabaseManager {
                     String fullname = rs.getString("fullname");
                     String email = rs.getString("email");
                     LocalDateTime logTimestamp = rs.getTimestamp("log_timestamp").toLocalDateTime();
+                    String profilePicturePath = rs.getString("profile_picture_path");
 
                     attendanceList.add(new AttendanceRecordStore(id, fullname, email, logTimestamp));
                 }

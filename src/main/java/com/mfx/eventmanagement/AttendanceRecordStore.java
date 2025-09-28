@@ -13,6 +13,7 @@ public class AttendanceRecordStore {
     private String email;
     private String phonenumber;
     private LocalDateTime logTimestamp;
+    private String profilePicturePath;
 
     // Constructor for populating ListView
     public AttendanceRecordStore(int attendanceId, String fullname, String email, LocalDateTime logTimestamp) {
@@ -23,7 +24,7 @@ public class AttendanceRecordStore {
     }
 
     // Full constructor for detailed record
-    public AttendanceRecordStore(int attendanceId, int eventId, String fullname, int age, String gender, String about, String address, String email, String phonenumber, LocalDateTime logTimestamp) {
+    public AttendanceRecordStore(int attendanceId, int eventId, String fullname, int age, String gender, String about, String address, String email, String phonenumber,String profilePicturePath, LocalDateTime logTimestamp) {
         this.attendanceId = attendanceId;
         this.eventId = eventId;
         this.fullname = fullname;
@@ -34,6 +35,7 @@ public class AttendanceRecordStore {
         this.email = email;
         this.phonenumber = phonenumber;
         this.logTimestamp = logTimestamp;
+        this.profilePicturePath = profilePicturePath;
     }
 
     // Getters for FXML/Controller (needed for property binding in ListView)
@@ -41,6 +43,9 @@ public class AttendanceRecordStore {
     public String getFullname() { return fullname; }
     public String getEmail() { return email; }
     public LocalDateTime getLogTimestamp() { return logTimestamp; }
+    public String getProfilePicturePath() {
+        return profilePicturePath;
+    }
 
-    // You'll need more getters/setters if you want to display more info, but these cover the card prototype.
+
 }
