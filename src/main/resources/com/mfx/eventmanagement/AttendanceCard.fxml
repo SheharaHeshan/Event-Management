@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -8,9 +9,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane minHeight="50.0" minWidth="700.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mfx.eventmanagement.AttendanceController">
+<AnchorPane minHeight="50.0" minWidth="700.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mfx.eventmanagement.AttendanceCardController">
     <children>
-        <HBox layoutX="-2.0" minHeight="50.0" minWidth="700.0">
+        <HBox layoutX="-2.0" minHeight="50.0" minWidth="700.0" prefHeight="61.0" prefWidth="720.0">
             <children>
 
                 <ImageView fitHeight="51.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
@@ -26,31 +27,36 @@
                </image>
                 </ImageView>
 
-                <Label minHeight="30.0" minWidth="160.0" style="-fx-border-color: blue;" text=" Name">
+                <Label fx:id="cardName" minHeight="30.0" minWidth="160.0" style="-fx-border-color: blue;" text=" Name">
                     <HBox.margin>
                         <Insets bottom="15.0" left="10.0" top="15.0" />
                     </HBox.margin>
                 </Label>
-                <Label layoutX="61.0" layoutY="10.0" minHeight="30.0" minWidth="150.0" style="-fx-border-color: blue;" text=" Email">
+                <Label fx:id="cardEmail" layoutX="61.0" layoutY="10.0" minHeight="30.0" minWidth="150.0" style="-fx-border-color: blue;" text=" Email">
                     <HBox.margin>
                         <Insets bottom="15.0" left="10.0" top="15.0" />
                     </HBox.margin>
                 </Label>
-                <Label layoutX="93.0" layoutY="10.0" minHeight="30.0" minWidth="120.0" style="-fx-border-color: blue;" text=" Join Date">
+                <Label fx:id="cardDate" layoutX="93.0" layoutY="10.0" minHeight="30.0" minWidth="120.0" style="-fx-border-color: blue;" text=" Join Date">
                     <HBox.margin>
                         <Insets bottom="15.0" left="10.0" top="15.0" />
                     </HBox.margin>
                 </Label>
-                <Label layoutX="125.0" layoutY="10.0" minHeight="30.0" minWidth="120.0" style="-fx-border-color: blue;" text=" Join Time">
+                <Label fx:id="cardTime" layoutX="125.0" layoutY="10.0" minHeight="30.0" minWidth="120.0" style="-fx-border-color: blue;" text=" Join Time">
                     <HBox.margin>
                         <Insets bottom="15.0" left="10.0" top="15.0" />
                     </HBox.margin>
                 </Label>
-                <Label layoutX="157.0" layoutY="10.0" minHeight="30.0" minWidth="100.0" style="-fx-border-color: blue;" text=" Action">
-                    <HBox.margin>
-                        <Insets bottom="15.0" left="10.0" right="10.0" top="15.0" />
-                    </HBox.margin>
-                </Label>
+            <MFXButton fx:id="editbtn" minHeight="30.0">
+               <HBox.margin>
+                  <Insets left="10.0" top="15.0" />
+               </HBox.margin>
+            </MFXButton>
+            <MFXButton fx:id="delbtn" layoutX="651.0" layoutY="10.0" minHeight="30.0">
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" top="15.0" />
+               </HBox.margin>
+            </MFXButton>
             </children>
         </HBox>
     </children>

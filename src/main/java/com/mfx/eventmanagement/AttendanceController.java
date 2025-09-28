@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Map;
 import java.util.stream.Collectors;
+import javafx.scene.control.ListCell;
 
 public class AttendanceController {
 
@@ -28,6 +29,8 @@ public class AttendanceController {
     private MFXButton shareButton;
     @FXML
     private MFXListView<AttendanceRecordStore > attendanceListView;
+
+
 
 
 
@@ -55,6 +58,40 @@ public class AttendanceController {
             if (newVal != null) {
                 selectedEventId = eventNameToIdMap.get(newVal);
                 loadAttendanceData(selectedEventId);
+            }
+        });
+
+        attendanceListView.setCellFactory(listView -> new ListCell<AttendanceRecordStore>() {
+            private Parent content;
+            private AttendanceCardController controller; // The controller for the FXML template
+
+            @Override
+            protected void updateItem(AttendanceRecordStore item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (item == null || empty) {
+                    setGraphic(null);
+                    setText(null);
+                } else {
+                    if (content == null) {
+                        try {
+                            // Load the FXML template once per cell instance
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("AttendanceCard.fxml"));
+                            content = loader.load();
+                            controller = loader.getController();
+                        } catch (IOException e) {
+                            System.err.println("❌ Error loading AttendanceCard.fxml: " + e.getMessage());
+                            e.printStackTrace();
+                        }
+                    }
+                    if (controller != null) {
+                        // Bind the data from the item to the card's labels
+                        controller.setAttendanceRecord(item);
+                    }
+                    setGraphic(content);
+                    // Optional: Remove default cell padding for a cleaner look
+                    setStyle("-fx-padding: 0;");
+                }
             }
         });
 
