@@ -180,6 +180,7 @@ public class DatabaseManager {
         return false;
     }
 
+
     public int registerUser(String firstName, String lastName, String email, String passwordHash) {
         // SQL to insert the new user data. We skip optional fields for now.
         String sql = "INSERT INTO users (first_name, last_name, email, password_hash) VALUES (?, ?, ?, ?)";
@@ -217,8 +218,16 @@ public class DatabaseManager {
     }
 
     public int registerVerifiedUser(String firstName, String lastName, String email, String passwordHash) {
-        // is_verified is set to 1 (true) upon final registration
-        String sql = "INSERT INTO users (first_name, last_name, email, password_hash, is_verified) VALUES (?, ?, ?, ?, 1)";
+        // 1. Check if email already exists (Optional but good practice)
+        if (isEmailRegistered(email)) {
+            System.err.println("Error registering verified user: Email already exists.");
+            return -2; // Code for email already exists
+        }
+
+        // 2. Insert verified user
+        String sql = "INSERT INTO users (first_name, last_name, email, password_hash, is_verified) VALUES (?, ?, ?, ?, ?)";
+        int generatedId = -1;
+
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -226,26 +235,24 @@ public class DatabaseManager {
             pstmt.setString(2, lastName);
             pstmt.setString(3, email);
             pstmt.setString(4, passwordHash);
+            // FIX: Set is_verified to 1 as verification is complete
+            pstmt.setInt(5, 1);
 
             int affectedRows = pstmt.executeUpdate();
 
             if (affectedRows > 0) {
-                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        return generatedKeys.getInt(1); // Return the generated user ID
+                try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        generatedId = rs.getInt(1);
                     }
                 }
             }
-            return -1; // Insertion failed
         } catch (SQLException e) {
-            // Check for duplicate entry error (specific to MySQL/MariaDB for unique constraint)
-            if (e.getSQLState().startsWith("23")) {
-                System.err.println("Email already registered (constraint check): " + email);
-                return -2;
-            }
+            // Log the error detailed in the user's issue
             System.err.println("Error registering verified user: " + e.getMessage());
-            return -1;
+            return -1; // General failure
         }
+        return generatedId;
     }
 
     /**
