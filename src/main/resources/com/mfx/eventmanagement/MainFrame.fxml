@@ -48,7 +48,7 @@
                   <Insets left="7.5" top="10.0" />
                </VBox.margin>
             </MFXButton>
-            <MFXButton fx:id="attendencepass" prefHeight="42.0" prefWidth="185.0" text="Attendence">
+            <MFXButton fx:id="attendencepass" onAction="#loadAttendanceMain" prefHeight="42.0" prefWidth="185.0" text="Attendence">
                <VBox.margin>
                   <Insets left="7.5" top="10.0" />
                </VBox.margin>

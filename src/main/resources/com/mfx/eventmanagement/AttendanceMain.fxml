@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXListView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+
+<AnchorPane fx:id="eventPane" minHeight="768.0" minWidth="1024.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mfx.eventmanagement.AttendanceController">
+    <children>
+        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+            <VBox prefWidth="750.0" HBox.hgrow="ALWAYS">
+                <children>
+                    <HBox prefHeight="86.0" prefWidth="762.0">
+                        <children>
+                            <MFXComboBox fx:id="eventComboBox" minHeight="48.0" minWidth="120.0" prefHeight="48.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
+                                <HBox.margin>
+                                    <Insets left="22.0" top="15.0" />
+                                </HBox.margin>
+                            </MFXComboBox>
+
+                            <MFXButton fx:id="addManuallyButton" buttonType="RAISED" minHeight="48.0" minWidth="120.0" onAction="#handleAddManually" style="-fx-border-color: blue;" text="Add ">
+                                <HBox.margin>
+                                    <Insets left="20.0" top="15.0" />
+                                </HBox.margin>
+                            </MFXButton>
+                            <MFXButton buttonType="RAISED" layoutX="32.0" layoutY="25.0" minHeight="48.0" minWidth="120.0" style="-fx-border-color: blue;" text="Import(CSV)">
+                                <HBox.margin>
+                                    <Insets left="20.0" top="15.0" />
+                                </HBox.margin>
+                            </MFXButton>
+                            <MFXButton fx:id="shareButton" buttonType="RAISED" layoutX="172.0" layoutY="25.0" minHeight="48.0" minWidth="120.0" onAction="#handleShare" style="-fx-border-color: blue;" text="Share">
+                                <HBox.margin>
+                                    <Insets left="20.0" right="22.0" top="15.0" />
+                                </HBox.margin>
+                            </MFXButton>
+                        </children>
+                    </HBox>
+
+                    <Line endX="652.8929443359375" endY="-0.20710524916648865" startX="-100.0" />
+
+                    <HBox prefHeight="36.0" prefWidth="764.0">
+                        <children>
+                            <Label minHeight="25.0" minWidth="200.0" text="   Name" HBox.hgrow="ALWAYS" />
+
+                            <Label layoutX="10.0" layoutY="10.0" minHeight="25.0" minWidth="170.0" text="  Email" HBox.hgrow="ALWAYS" />
+
+                            <Label layoutX="42.0" layoutY="10.0" minHeight="25.0" minWidth="135.0" text="  Join Date" />
+                            <Label layoutX="71.0" layoutY="10.0" minHeight="25.0" minWidth="135.0" text="  Join TIme" />
+                            <Label layoutX="42.0" layoutY="10.0" minHeight="25.0" minWidth="100.0" prefHeight="26.0" prefWidth="123.0" text="  Action" />
+                        </children>
+                    </HBox>
+
+                    <MFXListView fx:id="attendanceListView" prefHeight="645.0" prefWidth="764.0" VBox.vgrow="ALWAYS" />
+                </children>
+            </VBox>
+
+            <AnchorPane prefWidth="250.0" style="-fx-background-color: black;" HBox.hgrow="ALWAYS">
+            </AnchorPane>
+
+        </HBox>
+    </children>
+</AnchorPane>

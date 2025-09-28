@@ -2,9 +2,14 @@ package com.mfx.eventmanagement;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DatabaseManager {
 
@@ -99,5 +104,82 @@ public class DatabaseManager {
             e.printStackTrace();
         }
         return events;
+    }
+
+    /**
+     * Retrieves all event names and their IDs for the ComboBox.
+     * @return A Map where Key is eventName (String) and Value is eventId (Integer).
+     */
+    public Map<String, Integer> getEventNamesAndIds() {
+        Map<String, Integer> events = new HashMap<>();
+        String sql = "SELECT event_id, event_name FROM events ORDER BY event_name ASC";
+
+        try (Connection conn = getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                events.put(rs.getString("event_name"), rs.getInt("event_id"));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error loading event names and IDs: " + e.getMessage());
+        }
+        return events;
+    }
+
+    /**
+     * Retrieves attendance records for a specific event.
+     */
+    public List<AttendanceRecordStore > getAttendanceByEventId(int eventId) {
+        List<AttendanceRecordStore> attendanceList = new ArrayList<>();
+        String sql = "SELECT attendance_id, fullname, email, log_timestamp " +
+                "FROM attendance WHERE event_id = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, eventId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("attendance_id");
+                    String fullname = rs.getString("fullname");
+                    String email = rs.getString("email");
+                    LocalDateTime logTimestamp = rs.getTimestamp("log_timestamp").toLocalDateTime();
+
+                    attendanceList.add(new AttendanceRecordStore(id, fullname, email, logTimestamp));
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error loading attendance for event ID " + eventId + ": " + e.getMessage());
+        }
+        return attendanceList;
+    }
+
+    /**
+     * Inserts a new attendance record (for Add Manually feature).
+     */
+    public boolean insertAttendance(int eventId, String fullname, int age, String gender, String about, String address, String email, String phonenumber) {
+        String sql = "INSERT INTO attendance (event_id, fullname, age, gender, about, address, email, phonenumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, eventId);
+            pstmt.setString(2, fullname);
+            pstmt.setInt(3, age);
+            pstmt.setString(4, gender);
+            pstmt.setString(5, about);
+            pstmt.setString(6, address);
+            pstmt.setString(7, email);
+            pstmt.setString(8, phonenumber);
+
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error inserting new attendance: " + e.getMessage());
+            return false;
+        }
     }
 }

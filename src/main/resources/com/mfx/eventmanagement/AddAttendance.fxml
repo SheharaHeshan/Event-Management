@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="450.0" prefWidth="400.0" spacing="10.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mfx.eventmanagement.AddAttendanceController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <children>
+        <Label text="Add Attendee Manually">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+        <GridPane hgap="10.0" prefHeight="300.0" vgap="10.0">
+            <columnConstraints>
+                <javafx.scene.layout.ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="100.0" />
+                <javafx.scene.layout.ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <javafx.scene.layout.RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <javafx.scene.layout.RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <javafx.scene.layout.RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <javafx.scene.layout.RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <javafx.scene.layout.RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <javafx.scene.layout.RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <javafx.scene.layout.RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <javafx.scene.layout.RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label text="Full Name:" />
+                <TextField fx:id="fullnameField" promptText="Full Name" GridPane.columnIndex="1" />
+                <Label text="Age:" GridPane.rowIndex="1" />
+                <TextField fx:id="ageField" promptText="Age (e.g., 30)" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label text="Gender:" GridPane.rowIndex="2" />
+                <TextField fx:id="genderField" promptText="Gender" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label text="Email:" GridPane.rowIndex="3" />
+                <TextField fx:id="emailField" promptText="Email Address" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label text="Phone:" GridPane.rowIndex="4" />
+                <TextField fx:id="phoneField" promptText="Phone Number" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <Label text="Address:" GridPane.rowIndex="5" />
+                <TextField fx:id="addressField" promptText="Address" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <Label text="About:" GridPane.rowIndex="6" />
+                <TextField fx:id="aboutField" promptText="About (Optional)" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            </children>
+        </GridPane>
+        <HBox alignment="CENTER_RIGHT" prefHeight="40.0" spacing="10.0">
+            <children>
+                <MFXButton onAction="#handleCancel" style="-fx-background-color: #F44336;" text="Cancel" />
+                <MFXButton onAction="#handleSave" style="-fx-background-color: #4CAF50;" text="Save" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

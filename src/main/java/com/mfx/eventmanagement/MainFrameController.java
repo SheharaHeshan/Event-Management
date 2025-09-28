@@ -42,6 +42,9 @@ public class MainFrameController {
     @FXML
     private MFXButton CreateButton;
 
+    @FXML
+    private MFXButton attendencepass;
+
     private boolean isExpanded = true;
 
     private static final double EXPANDED_WIDTH = 200;
@@ -115,5 +118,27 @@ public class MainFrameController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void loadAttendanceMain() {
+        try {
+            // Load the FXML for the attendance view
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AttendanceMain.fxml"));
+            Parent attendanceView = loader.load();
+
+            // Set the attendance view to the center of the BorderPane
+            root.setCenter(attendanceView);
+
+            // Optional: The AttendanceController might need to initialize after this
+            // You can call an initialization method on the controller if needed.
+            // AttendanceController controller = loader.getController();
+            // controller.initializeData(); // Example
+
+        } catch (IOException e) {
+            System.err.println("❌ FXML Load Failed for AttendanceMain.fxml: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 
 }
