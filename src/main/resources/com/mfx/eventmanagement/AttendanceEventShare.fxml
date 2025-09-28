@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="600.0" minWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CONTROLLER_NAME">
+<AnchorPane minHeight="600.0" minWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mfx.eventmanagement.AttendanceEventShare">
    <children>
       <VBox minHeight="606.0" minWidth="600.0">
          <children>
@@ -88,12 +88,12 @@
                   </Label>
                   <HBox prefHeight="89.0" prefWidth="598.0">
                      <children>
-                        <TextField prefHeight="60.0" prefWidth="400.0">
+                        <TextField fx:id="shareUrlField" prefHeight="60.0" prefWidth="400.0">
                            <HBox.margin>
                               <Insets left="30.0" />
                            </HBox.margin>
                         </TextField>
-                        <MFXButton minHeight="60.0" prefHeight="60.0" prefWidth="118.0" text="Copy">
+                        <MFXButton fx:id="copyButton" minHeight="60.0" onAction="#handleCopyUrl" prefHeight="60.0" prefWidth="118.0" text="Copy">
                            <font>
                               <Font name="Roboto Black" size="16.0" />
                            </font>
