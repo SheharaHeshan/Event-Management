@@ -24,6 +24,8 @@ public class UserRegistrationData {
 
     /**
      * Retrieves and clears the stored data once registration is finalized.
+     * This method is intended to be called exactly once during the final database
+     * insertion step (e.g., in VerifyNController).
      * @return An array of strings: [firstName, lastName, email, passwordHash]
      */
     public static String[] retrieveAndClearData() {
@@ -37,6 +39,16 @@ public class UserRegistrationData {
     }
 
     /**
+     * Retrieves the stored registration details without clearing them.
+     * This method is added to resolve the "retrieveData not found" error,
+     * but you should typically use retrieveAndClearData() when you are ready to finalize the registration.
+     * @return An array of strings: [firstName, lastName, email, passwordHash]
+     */
+    public static String[] retrieveData() {
+        return new String[] {firstName, lastName, email, passwordHash};
+    }
+
+    /**
      * Get the email for verification and display purposes without clearing.
      */
     public static String getEmail() {
@@ -47,6 +59,7 @@ public class UserRegistrationData {
      * Helper method to generate a random 6-digit OTP code.
      */
     public static String generateOtp() {
-        return String.format("%06d", (int) (Math.random() * 999999));
+        // Generates a random number between 0 and 999999 (inclusive) and formats it as 6 digits, padding with leading zeros.
+        return String.format("%06d", (int) (Math.random() * 1000000));
     }
 }

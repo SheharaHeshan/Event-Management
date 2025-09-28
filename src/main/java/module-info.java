@@ -21,6 +21,7 @@ module com.mfx.eventmanagement {
     requires java.sql;
     requires jfxtras.controls;
     requires java.desktop;
+    requires jbcrypt;
     //requires com.mfx.eventmanagement;
 
     opens com.mfx.eventmanagement to javafx.fxml;

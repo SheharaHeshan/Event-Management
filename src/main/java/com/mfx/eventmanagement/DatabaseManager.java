@@ -180,6 +180,34 @@ public class DatabaseManager {
         return false;
     }
 
+    public Map<String, Object> authenticateUser(String email) {
+        // We only retrieve the sensitive data (hash) based on the email.
+        String sql = "SELECT user_id, password_hash, is_verified FROM users WHERE email = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, email);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    Map<String, Object> userData = new HashMap<>();
+                    userData.put("user_id", rs.getInt("user_id"));
+                    userData.put("password_hash", rs.getString("password_hash"));
+                    userData.put("is_verified", rs.getInt("is_verified"));
+                    return userData;
+                }
+            }
+            return null; // User not found
+
+        } catch (SQLException e) {
+            System.err.println("Database Error during user authentication check for " + email + ": " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 
     public int registerUser(String firstName, String lastName, String email, String passwordHash) {
         // SQL to insert the new user data. We skip optional fields for now.
@@ -217,17 +245,14 @@ public class DatabaseManager {
         return generatedUserId;
     }
 
-    public int registerVerifiedUser(String firstName, String lastName, String email, String passwordHash) {
-        // 1. Check if email already exists (Optional but good practice)
-        if (isEmailRegistered(email)) {
-            System.err.println("Error registering verified user: Email already exists.");
-            return -2; // Code for email already exists
-        }
+    public int registerCompleteUser(String firstName, String lastName, String email, String passwordHash,
+                                    String age, String gender, String phone_number, String address,
+                                    String profilePicturePath) {
 
-        // 2. Insert verified user
-        String sql = "INSERT INTO users (first_name, last_name, email, password_hash, is_verified) VALUES (?, ?, ?, ?, ?)";
-        int generatedId = -1;
+        String sql = "INSERT INTO users (first_name, last_name, email, password_hash, is_verified, age, gender, phone_number, address, profile_picture_path) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+        // Use Statement.RETURN_GENERATED_KEYS to retrieve the new user_id
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -235,25 +260,109 @@ public class DatabaseManager {
             pstmt.setString(2, lastName);
             pstmt.setString(3, email);
             pstmt.setString(4, passwordHash);
-            // FIX: Set is_verified to 1 as verification is complete
-            pstmt.setInt(5, 1);
+            pstmt.setInt(5, 1); // is_verified = 1 (True)
+            pstmt.setString(6, age);
+            pstmt.setString(7, gender);
+            pstmt.setString(8, phone_number);
+            pstmt.setString(9, address);
+            pstmt.setString(10, profilePicturePath);
 
             int affectedRows = pstmt.executeUpdate();
 
             if (affectedRows > 0) {
-                try (ResultSet rs = pstmt.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        generatedId = rs.getInt(1);
+                // Retrieve the generated user ID
+                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        return generatedKeys.getInt(1); // Return the generated ID
                     }
                 }
             }
+            return -1; // Insertion failed
+
         } catch (SQLException e) {
-            // Log the error detailed in the user's issue
-            System.err.println("Error registering verified user: " + e.getMessage());
-            return -1; // General failure
+            System.err.println("Error finalizing user registration (single table insert) for email " + email + ": " + e.getMessage());
+            e.printStackTrace();
+            return -1;
         }
-        return generatedId;
     }
+
+//    public int registerVerifiedUser(String firstName, String lastName, String email, String passwordHash) {
+//        // 1. Check if email already exists (Optional but good practice)
+//        if (isEmailRegistered(email)) {
+//            System.err.println("Error registering verified user: Email already exists.");
+//            return -2; // Code for email already exists
+//        }
+//
+//        // 2. Insert verified user
+//        String sql = "INSERT INTO users (first_name, last_name, email, password_hash, is_verified) VALUES (?, ?, ?, ?, ?)";
+//        int generatedId = -1;
+//
+//        try (Connection conn = getConnection();
+//             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+//
+//            pstmt.setString(1, firstName);
+//            pstmt.setString(2, lastName);
+//            pstmt.setString(3, email);
+//            pstmt.setString(4, passwordHash);
+//            // FIX: Set is_verified to 1 as verification is complete
+//            pstmt.setInt(5, 1);
+//
+//            int affectedRows = pstmt.executeUpdate();
+//
+//            if (affectedRows > 0) {
+//                try (ResultSet rs = pstmt.getGeneratedKeys()) {
+//                    if (rs.next()) {
+//                        generatedId = rs.getInt(1);
+//                    }
+//                }
+//            }
+//        } catch (SQLException e) {
+//            // Log the error detailed in the user's issue
+//            System.err.println("Error registering verified user: " + e.getMessage());
+//            return -1; // General failure
+//        }
+//        return generatedId;
+//    }
+
+//    public boolean completeUserProfile(String email, String age, String gender, String phonenumber, String address, String profilePicturePath) {
+//        // Ensure that age is parsed as INT for the database (if it's not null)
+//        Integer ageInt = null;
+//        try {
+//            ageInt = Integer.parseInt(age);
+//        } catch (NumberFormatException e) {
+//            System.err.println("Invalid age format for update: " + age);
+//            // We can proceed with a null or default value if the DB allows, but for now, log error.
+//        }
+//
+//        String sql = "UPDATE organizer SET age = ?, gender = ?, phonenumber = ?, address = ?, profile_picture_path = ? WHERE email = ?";
+//        try (Connection conn = getConnection();
+//             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+//
+//            // Set profile data
+//            if (ageInt != null) {
+//                pstmt.setInt(1, ageInt);
+//            } else {
+//                pstmt.setNull(1, java.sql.Types.INTEGER);
+//            }
+//            pstmt.setString(2, gender);
+//            pstmt.setString(3, phonenumber);
+//            pstmt.setString(4, address);
+//            pstmt.setString(5, profilePicturePath);
+//
+//            // WHERE clause to identify the user
+//            pstmt.setString(6, email);
+//
+//            int affectedRows = pstmt.executeUpdate();
+//            return affectedRows > 0;
+//
+//        } catch (SQLException e) {
+//            System.err.println("Error completing user profile for email " + email + ": " + e.getMessage());
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
+
+
 
     /**
      * Inserts a new attendance record (for Add Manually feature).
