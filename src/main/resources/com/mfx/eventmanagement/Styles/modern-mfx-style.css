@@ -1,0 +1,171 @@
+/*
+ * modern-mfx-style.css
+ * Modern UI/UX Style Sheet for JavaFX and MaterialFX Controls
+ *
+ * Design Principles:
+ * - Clean, professional, and accessible color palette.
+ * - Subtle elevation (dropshadow) for depth on card/raised elements.
+ * - Flat design for text fields with focus-based line emphasis.
+ * - Rounded corners for a softer, modern look.
+ */
+
+/* -----------------------------------------------------------------------------
+ * 1. COLOR PALETTE & GLOBAL VARIABLES (Looked-Up Colors)
+ * -------------------------------------------------------------------------- */
+.root {
+    /* Base Color Palette (Deep Blue/Cyan - Professional & Modern) */
+    -fx-primary: #3F51B5;        /* Deep Indigo (Primary Brand Color) */
+    -fx-primary-hover: #3949AB;  /* Darker shade for hover states */
+    -fx-accent: #00BCD4;         /* Cyan (Secondary/Highlight Color) */
+    -fx-success: #4CAF50;        /* Green for positive actions (e.g., Schedule) */
+    -fx-error: #F44336;          /* Red for destructive actions (e.g., Delete) */
+
+    /* Surface & Background Colors */
+    -fx-background-color: #FAFAFA; /* Very light gray scene background */
+    -fx-surface-color: #FFFFFF;    /* Pure white for container/card surfaces */
+    -fx-shadow-color: rgba(0, 0, 0, 0.15); /* Subtle shadow color for elevation */
+
+    /* Typography Colors */
+    -fx-text-color: #212121;     /* Dark gray for primary text */
+    -fx-text-color-secondary: #757575; /* Lighter gray for secondary text */
+    -fx-on-primary-text: #FFFFFF; /* White text on primary colored controls */
+
+    /* Metrics & Defaults */
+    -fx-font-family: "System"; /* Use the system's clean default font */
+    -fx-default-font-size: 14px;
+    -fx-border-radius: 8px; /* General border radius for a modern soft look */
+}
+
+/* -----------------------------------------------------------------------------
+ * 2. CONTAINER / CARD STYLING (AnchorPane from EventCard.fxml)
+ * -------------------------------------------------------------------------- */
+.anchor-pane {
+    -fx-background-color: -fx-surface-color;
+    -fx-background-radius: -fx-border-radius;
+    -fx-border-radius: -fx-border-radius;
+    -fx-border-color: #E0E0E0; /* Light gray border for subtle separation */
+    -fx-border-width: 1px;
+    /* Soft shadow for subtle elevation (Material Design 'card' effect) */
+    -fx-effect: dropshadow(gaussian, -fx-shadow-color, 8, 0.05, 0, 3);
+}
+
+/* -----------------------------------------------------------------------------
+ * 3. TYPOGRAPHY (Labels)
+ * -------------------------------------------------------------------------- */
+.label {
+    -fx-text-fill: -fx-text-color;
+    -fx-font-size: -fx-default-font-size;
+    -fx-padding: 0;
+}
+
+/* Primary Title Label (e.g., EventLabel) */
+#EventLabel {
+    -fx-font-size: 1.25em; /* Larger size */
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary;
+    -fx-border-color: transparent; /* Remove inline FXML border if present */
+}
+
+/* Secondary Labels (e.g., Start Date/Time) */
+#StartDateLabel, #StartTimeLabel {
+    -fx-text-fill: -fx-text-color-secondary;
+    -fx-font-size: 0.9em;
+    -fx-border-color: transparent; /* Remove inline FXML border if present */
+}
+
+/* -----------------------------------------------------------------------------
+ * 4. BUTTONS (MaterialFX MFXButton)
+ * -------------------------------------------------------------------------- */
+
+/* Base Style for all MFXButtons (affects text-only buttons) */
+.mfx-button {
+    -fx-font-weight: 500;
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-primary; /* Text buttons use primary color */
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -mfx-ripple-color: -fx-primary-light; /* Light ripple for click feedback */
+}
+
+/* Raised/Contained Buttons (MFXButton buttonType="RAISED") */
+.mfx-button[button-type="RAISED"] {
+    -fx-background-color: -fx-primary;
+    -fx-text-fill: -fx-on-primary-text;
+    -fx-effect: dropshadow(gaussian, -fx-shadow-color, 3, 0.1, 0, 1); /* Elevation */
+    -mfx-ripple-color: #FFFFFF50; /* White ripple for contrast on colored buttons */
+    -fx-padding: 0.6em 1.5em;
+}
+
+.mfx-button[button-type="RAISED"]:hover {
+    -fx-background-color: -fx-primary-hover;
+    -fx-cursor: hand;
+}
+
+/* Specific Style for the 'Schedule' Button from FXML */
+#SheduleEventBtn {
+    -fx-background-color: -fx-success; /* Use the defined success color */
+    -fx-border-color: transparent; /* Override FXML inline style: -fx-border-color: black; */
+}
+
+#SheduleEventBtn:hover {
+    -fx-background-color: derive(-fx-success, -10%); /* Subtle darkening on hover */
+}
+
+/* Icon Buttons (Edit and Delete from FXML) - Makes them circular and removes base color */
+#EditBtn, #DelBtn {
+    -fx-background-color: transparent;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-padding: 5px;
+    -mfx-ripple-color: #BDBDBD;
+}
+
+#EditBtn:hover, #DelBtn:hover {
+    -fx-background-color: #EEEEEE; /* Light background on hover for feedback */
+    -fx-cursor: hand;
+}
+
+/* ... other styles above ... */
+
+/* Icon Buttons (Edit and Delete) - Makes them purely circular icons */
+#EditBtn, #DelBtn {
+    -fx-background-color: transparent;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-padding: 5px; /* Adjust padding around the icon to be compact */
+    -mfx-ripple-color: #BDBDBD;
+    /* IMPORTANT: Remove text styling and ensure graphic is central */
+    -fx-text-fill: transparent; /* Ensures any residual text is invisible */
+    -fx-alignment: CENTER; /* Center the graphic inside the button */
+}
+
+#EditBtn:hover, #DelBtn:hover {
+    -fx-background-color: #EEEEEE; 
+    -fx-cursor: hand;
+}
+
+/* Specific Style for the 'Schedule' Button */
+#SheduleEventBtn {
+    -fx-background-color: -fx-success; 
+    -fx-text-fill: -fx-on-primary-text;
+    -fx-border-color: transparent; 
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER; /* Ensure text is centered if padding is tight */
+}
+
+/* ... rest of the CSS ... */
+/* -----------------------------------------------------------------------------
+ * 5. TEXT FIELDS (If used, standard Material style)
+ * -------------------------------------------------------------------------- */
+.text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-text-color;
+    -fx-border-color: #BDBDBD;
+    -fx-border-width: 0 0 1 0; /* Bottom border line only */
+    -fx-padding: 0.5em 0 0.5em 0; /* Adjust padding for a flat, inline appearance */
+}
+
+.text-field:focused {
+    -fx-border-color: -fx-primary;
+    -fx-border-width: 0 0 2 0; /* Thicker primary line on focus */
+}

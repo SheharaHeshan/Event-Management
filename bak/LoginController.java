@@ -8,7 +8,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import java.util.Map;
 
-// NOTE: PasswordHashUtil is no longer needed since we are comparing raw strings.
+// NOTE: You must ensure a class named 'PasswordHashUtil' exists
+// with a static method 'verifyPassword(String rawPassword, String storedHash)'
 
 /**
  * Controller for the LogIn.fxml interface.
@@ -43,14 +44,14 @@ public class LoginController {
     @FXML
     private void actionLogin(ActionEvent event) {
         String email = mailinput.getText().trim();
-        String password = passwordinput.getText(); // Raw input password
+        String password = passwordinput.getText();
 
         if (email.isEmpty() || password.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Login Failed", "Please enter both email and password.");
             return;
         }
 
-        // 1. Retrieve user data (ID, Raw Password, Verification Status) from the database
+        // 1. Retrieve user data (ID, Hash, Verification Status) from the database
         Map<String, Object> userData = dbManager.authenticateUser(email);
 
         if (userData == null) {
@@ -59,17 +60,17 @@ public class LoginController {
             return;
         }
 
-        // The stored value is now the raw password string.
-        String storedRawPassword = (String) userData.get("password_hash");
+        String storedHash = (String) userData.get("password_hash");
         int userId = (int) userData.get("user_id");
         int isVerified = (int) userData.get("is_verified");
 
-        // 2. Verify the raw password against the stored value
-        // FIX: Replaced complex hash verification with simple string comparison.
-        boolean passwordMatches = password.equals(storedRawPassword);
+        // 2. Verify the raw password against the stored hash
+        // IMPORTANT: Assuming PasswordHashUtil is available for verification
+        boolean passwordMatches = PasswordHashUtil.verifyPassword(password, storedHash);
 
         if (passwordMatches) {
             if (isVerified == 0) {
+                // Should not happen if registration forces verification, but good to check
                 showAlert(Alert.AlertType.WARNING, "Login Failed", "Account is registered but not verified. Please verify your email.");
                 return;
             }
@@ -82,7 +83,7 @@ public class LoginController {
             System.out.println("User " + userId + " logged in successfully.");
 
             // Transition to the main application view
-            SceneLoader.loadScene(event, "MainFrame.fxml");
+            SceneLoader.loadScene(event, "welcome.fxml");
 
         } else {
             // Password verification failed

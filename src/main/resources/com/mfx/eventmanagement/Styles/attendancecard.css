@@ -1,0 +1,134 @@
+/*
+ * modern-mfx-style.css
+ * Unified Style Sheet for EventCard and AttendanceCard
+ */
+
+/* -----------------------------------------------------------------------------
+ * 1. COLOR PALETTE & GLOBAL VARIABLES (Looked-Up Colors)
+ * -------------------------------------------------------------------------- */
+.root {
+    /* Base Color Palette (Deep Blue/Cyan - Professional & Modern) */
+    -fx-primary: #3F51B5;        /* Deep Indigo (Primary Brand Color) */
+    -fx-primary-hover: #3949AB;  /* Darker shade for hover states */
+    -fx-accent: #00BCD4;         /* Cyan (Secondary/Highlight Color) */
+    -fx-success: #4CAF50;        /* Green for positive actions (e.g., Schedule) */
+    -fx-error: #F44336;          /* Red for destructive actions (e.g., Delete) */
+
+    /* Surface & Background Colors */
+    -fx-background-color: #FAFAFA; /* Very light gray scene background */
+    -fx-surface-color: #FFFFFF;    /* Pure white for container/card surfaces */
+    -fx-shadow-color: rgba(0, 0, 0, 0.15); /* Subtle shadow color for elevation */
+
+    /* Typography Colors */
+    -fx-text-color: #212121;     /* Dark gray for primary text */
+    -fx-text-color-secondary: #757575; /* Lighter gray for secondary text */
+    -fx-on-primary-text: #FFFFFF; /* White text on primary colored controls */
+
+    /* Metrics & Defaults */
+    -fx-font-family: "System";
+    -fx-default-font-size: 14px;
+    -fx-border-radius: 8px; /* General border radius for a modern soft look */
+}
+
+/* -----------------------------------------------------------------------------
+ * 2. CONTAINER / CARD STYLING 
+ * -------------------------------------------------------------------------- */
+
+/* Applies to the root AnchorPane of both EventCard and AttendanceCard */
+.anchor-pane {
+    -fx-background-color: -fx-surface-color;
+    -fx-background-radius: -fx-border-radius;
+    -fx-border-color: #E0E0E0; /* Light border for separation */
+    -fx-border-width: 1px;
+    /* Soft shadow for subtle elevation (Material Design 'card' effect) */
+    -fx-effect: dropshadow(gaussian, -fx-shadow-color, 8, 0.05, 0, 3);
+}
+
+/* Style for the HBox inside AttendanceCard (the row container) */
+.hbox {
+    -fx-background-color: -fx-surface-color;
+    -fx-alignment: CENTER_LEFT;
+}
+
+/* -----------------------------------------------------------------------------
+ * 3. TYPOGRAPHY (Labels)
+ * -------------------------------------------------------------------------- */
+.label {
+    -fx-text-fill: -fx-text-color;
+    -fx-font-size: -fx-default-font-size;
+    -fx-padding: 0;
+    /* Remove the inline FXML border for all labels */
+    -fx-border-color: transparent; 
+}
+
+/* Primary Titles/Names (EventCard: EventLabel, AttendanceCard: cardName) */
+#EventLabel, #cardName {
+    -fx-font-size: 1.1em; 
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary;
+}
+
+/* Secondary Data/Date Labels */
+#StartDateLabel, #StartTimeLabel, #EndDateLabel, #EndTimeLabel, 
+#AttendenceLable, #StatusLable, #cardEmail, #cardDate, #cardTime {
+    -fx-text-fill: -fx-text-color-secondary;
+    -fx-font-size: 0.9em;
+}
+
+/* -----------------------------------------------------------------------------
+ * 4. BUTTONS (MaterialFX MFXButton)
+ * -------------------------------------------------------------------------- */
+
+/* General MFX Button (Text/Default) */
+.mfx-button {
+    -fx-font-weight: 500;
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-primary;
+    -fx-background-radius: 4px;
+    -fx-alignment: CENTER;
+    -mfx-ripple-color: -fx-primary-light; 
+    -fx-cursor: hand;
+}
+
+/* --- ICON BUTTONS (EditBtn, DelBtn, editbtn, delbtn) --- */
+
+/* Style for icon-only buttons (circular, transparent background, used in both FXMLs) */
+#EditBtn, #DelBtn, #editbtn, #delbtn {
+    -fx-background-color: transparent;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-padding: 5px; 
+    -mfx-ripple-color: #BDBDBD;
+    -fx-text-fill: transparent; /* Ensures no default "Button" text is visible */
+    -fx-alignment: CENTER;
+}
+
+#EditBtn:hover, #DelBtn:hover, #editbtn:hover, #delbtn:hover {
+    -fx-background-color: #EEEEEE; /* Light background hover feedback */
+}
+
+/* --- RAISED/CONTAINED BUTTONS --- */
+
+/* Schedule Button (EventCard) - Style for the green 'Schedule' button */
+#SheduleEventBtn {
+    -fx-background-color: -fx-success; 
+    -fx-text-fill: -fx-on-primary-text;
+    -fx-effect: dropshadow(gaussian, -fx-shadow-color, 3, 0.1, 0, 1);
+    -fx-padding: 0.6em 1.5em;
+    -fx-font-weight: bold;
+    /* Overrides inline FXML styles */
+    -fx-border-color: transparent; 
+}
+
+#SheduleEventBtn:hover {
+    -fx-background-color: derive(-fx-success, -10%);
+}
+
+/* -----------------------------------------------------------------------------
+ * 5. PROFILE IMAGE (AttendanceCard)
+ * -------------------------------------------------------------------------- */
+
+/* Ensure the image view is styled appropriately within the circular clip */
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 3, 0, 0, 1);
+}

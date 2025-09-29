@@ -60,7 +60,7 @@
                   <Font name="Roboto Black" size="19.0" />
                </font>
             </MFXButton>
-            <TextField fx:id="fnamex" layoutX="46.0" layoutY="247.0" minHeight="40.0" minWidth="212.0"/>
+            <TextField fx:id="fnamex" layoutX="46.0" layoutY="247.0" minHeight="40.0" minWidth="212.0" />
             <TextField fx:id="snamex" layoutX="271.0" layoutY="247.0" minHeight="40.0" minWidth="212.0" />
             <TextField fx:id="mailinputx" layoutX="46.0" layoutY="341.0" minHeight="40.0" minWidth="212.0" prefHeight="40.0" prefWidth="438.0" />
             <PasswordField fx:id="pass" layoutX="44.0" layoutY="425.0" minHeight="40.0" minWidth="212.0" prefHeight="40.0" prefWidth="438.0" />

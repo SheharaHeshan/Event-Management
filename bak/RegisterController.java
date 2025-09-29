@@ -51,11 +51,18 @@ public class RegisterController {
         });
     }
 
-    // --- Utility Methods (Only showAlert remains, hashPassword is removed) ---
+    // --- Utility Methods (hashPassword and showAlert remain the same) ---
 
-    // NOTE: The hashPassword method has been removed as requested.
-    // Storing passwords without hashing is a severe security risk and is NOT recommended.
-    // It is kept for the requested modification only.
+    private String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes());
+            return HexFormat.of().formatHex(hash);
+        } catch (NoSuchAlgorithmException e) {
+            System.err.println("SHA-256 algorithm not found or failed during hashing.");
+            return null;
+        }
+    }
 
     private void showAlert(AlertType type, String title, String message) {
         Alert alert = new Alert(type);
@@ -106,7 +113,6 @@ public class RegisterController {
         }
 
         String email = mailinputx.getText().trim();
-        // Raw password is used directly as requested, instead of hashed password
         String rawPassword = confirmpass.getText();
         String firstName = fnamex.getText().trim();
         String lastName = snamex.getText().trim();
@@ -117,10 +123,13 @@ public class RegisterController {
             return;
         }
 
-        // 3. Store unverified data temporarily (using raw password now)
-        // DANGER: Storing the raw password is a security risk.
-        String passwordString = rawPassword;
-        UserRegistrationData.storeData(firstName, lastName, email, passwordString);
+        // 3. Hash the password and store unverified data temporarily
+        String passwordHash = hashPassword(rawPassword);
+        if (passwordHash == null) {
+            showAlert(AlertType.ERROR, "Security Error", "Could not process password securely. Registration stopped.");
+            return;
+        }
+        UserRegistrationData.storeData(firstName, lastName, email, passwordHash);
 
         // 4. Generate and send OTP
         String otpCode = UserRegistrationData.generateOtp();
