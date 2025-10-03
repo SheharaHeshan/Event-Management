@@ -14,7 +14,7 @@ public class AttendanceEventShare {
     @FXML
     private MFXButton copyButton; // Add fx:id="copyButton" to the Copy button
 
-    private static final String VPS_BASE_URL = " https://join.dev-heshan.xyz:4443/attendance";
+    private static final String VPS_BASE_URL = " http://invite.dev-heshan.xyz/attendance";
 
     private int eventId;
 

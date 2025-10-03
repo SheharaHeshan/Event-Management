@@ -99,25 +99,39 @@ public class EventCreateController {
             return;
         }
 
-        // --- NEW STEP: Create the Event Object here ---
-        EventDataStore newEvent = new EventDataStore(name, description, startDate, endDate, startTime, endTime, eventType, attendanceType);
+//        // --- NEW STEP: Create the Event Object here ---
+//        EventDataStore newEvent = new EventDataStore(eventId,name, description, startDate, endDate, startTime, endTime, eventType, attendanceType);
+//
+//        // 3. Insert Data into Database
+//        boolean success = dbManager.insertNewEvent(
+//                name, description, startDate, endDate, startTime, endTime, eventType, attendanceType);
+//
+//        // 4. Provide Feedback and Close
+//        if (success) {
+//            showAlert("Success", "Event '" + name + "' created successfully!", Alert.AlertType.INFORMATION);
+//            // Optionally, you can refresh the main frame here:
+//            // if (MainFrame != null) MainFrame.refreshEventList();
+//
+//            // FIX: Set the createdEvent object
+//            this.createdEvent = newEvent;
+//
+//        } else {
+//            showAlert("Error", "Failed to create event. Check database connection/logs.", Alert.AlertType.ERROR);
+//            return; // Don't close window on error
+//        }
 
-        // 3. Insert Data into Database
+        // 3. Insert Data into Database and Get Generated eventId
+        int[] generatedEventId = new int[1]; // Array to hold generated event_id
         boolean success = dbManager.insertNewEvent(
-                name, description, startDate, endDate, startTime, endTime, eventType, attendanceType);
+                name, description, startDate, endDate, startTime, endTime, eventType, attendanceType, generatedEventId);
 
-        // 4. Provide Feedback and Close
+        // 4. Provide Feedback and Create Event Object
         if (success) {
+            createdEvent = new EventDataStore(generatedEventId[0], name, description, startDate, endDate, startTime, endTime, eventType, attendanceType);
             showAlert("Success", "Event '" + name + "' created successfully!", Alert.AlertType.INFORMATION);
-            // Optionally, you can refresh the main frame here:
-            // if (MainFrame != null) MainFrame.refreshEventList();
-
-            // FIX: Set the createdEvent object
-            this.createdEvent = newEvent;
-
         } else {
             showAlert("Error", "Failed to create event. Check database connection/logs.", Alert.AlertType.ERROR);
-            return; // Don't close window on error
+            return;
         }
 
         // 4. Close the popup window

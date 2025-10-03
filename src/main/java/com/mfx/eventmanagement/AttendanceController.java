@@ -10,14 +10,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.stream.Collectors;
-import javafx.scene.control.ListCell;
 
 public class AttendanceController {
 
@@ -28,11 +27,9 @@ public class AttendanceController {
     @FXML
     private MFXButton shareButton;
     @FXML
-    private MFXListView<AttendanceRecordStore > attendanceListView;
-
-
-
-
+    private MFXListView<AttendanceRecordStore> attendanceListView;
+    @FXML
+    private AnchorPane profileAnchorPane; // Assuming this is the AnchorPane next to the ListView in AttendanceMain.fxml
 
     private DatabaseManager dbManager = new DatabaseManager();
     private ObservableList<AttendanceRecordStore> attendanceData = FXCollections.observableArrayList();
@@ -48,19 +45,6 @@ public class AttendanceController {
 
         // 2. Set up ListView
         attendanceListView.setItems(attendanceData);
-        // You'll need to set a custom cell factory to load AttendanceCard.fxml
-        // NOTE: This FXML-based ListView cell factory setup is complex in MaterialFX.
-        // For a prototype, you can use a simple cell factory or ensure AttendanceCard.fxml is the cell template.
-        // Assuming AttendanceCard.fxml is correctly set up as a custom list view cell in AttendanceMain.fxml.
-
-        // 3. Set up event handler for ComboBox selection
-        eventComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) {
-                selectedEventId = eventNameToIdMap.get(newVal);
-                loadAttendanceData(selectedEventId);
-            }
-        });
-
         attendanceListView.setCellFactory(listView -> new ListCell<AttendanceRecordStore>() {
             private Parent content;
             private AttendanceCardController controller; // The controller for the FXML template
@@ -95,7 +79,25 @@ public class AttendanceController {
             }
         });
 
-        // 4. Select the first event by default if any exist
+        // 3. Set up event handler for ComboBox selection
+        eventComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                selectedEventId = eventNameToIdMap.get(newVal);
+                loadAttendanceData(selectedEventId);
+            }
+        });
+
+        // 4. Set up listener for ListView selection to load profile
+        attendanceListView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            System.out.println("Selected item: " + (newVal != null ? newVal.getFullname() : "None"));
+            if (newVal != null) {
+                loadProfile(newVal.getAttendanceId());
+            } else {
+                profileAnchorPane.getChildren().clear();
+            }
+        });
+
+        // 5. Select the first event by default if any exist
         if (!eventNames.isEmpty()) {
             // ➡️ FIX: Use the selection model to select the first item
             eventComboBox.getSelectionModel().selectFirst();
@@ -106,6 +108,39 @@ public class AttendanceController {
         attendanceData.clear();
         if (eventId > 0) {
             attendanceData.addAll(dbManager.getAttendanceByEventId(eventId));
+        }
+    }
+
+    private void loadProfile(int attendanceId) {
+        // Fetch the full attendance record from the database
+        AttendanceRecordStore fullRecord = dbManager.getFullAttendanceRecord(attendanceId);
+        if (fullRecord == null) {
+            System.err.println("No full record found for attendance ID: " + attendanceId);
+            return;
+        }
+
+        try {
+            // Load the AttendanceProfile.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AttendanceProfile.fxml"));
+            Parent profile = loader.load();
+
+            // Get the controller and set the data
+            AttendanceProfileController controller = loader.getController();
+            controller.setAttendanceRecord(fullRecord);
+
+            // Clear the AnchorPane and add the loaded profile
+            profileAnchorPane.getChildren().clear();
+            profileAnchorPane.getChildren().add(profile);
+
+            // Anchor the profile to fill the pane
+            AnchorPane.setTopAnchor(profile, 0.0);
+            AnchorPane.setBottomAnchor(profile, 0.0);
+            AnchorPane.setLeftAnchor(profile, 0.0);
+            AnchorPane.setRightAnchor(profile, 0.0);
+
+        } catch (IOException e) {
+            System.err.println("Failed to load AttendanceProfile.fxml: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

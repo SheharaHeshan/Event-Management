@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class EventDataStore {
+    private final int eventId;
     private final String name;
     private final String description;
     private final LocalDate startDate;
@@ -13,9 +14,10 @@ public class EventDataStore {
     private final String eventType;
     private final String attendanceType;
 
-    public EventDataStore(String name, String description, LocalDate startDate, LocalDate endDate,
-                          LocalTime startTime, LocalTime endTime, String eventType, String attendanceType){
 
+    public EventDataStore(int eventId,String name, String description, LocalDate startDate, LocalDate endDate,
+                          LocalTime startTime, LocalTime endTime, String eventType, String attendanceType){
+        this.eventId = eventId;
         this.name = name;
         this.description = description;
         this.startDate = startDate;
@@ -28,6 +30,7 @@ public class EventDataStore {
     }
 
     // Getters for the FXML card to use
+    public int getEventId() { return eventId; }
     public String getName() { return name; }
     public LocalDate getStartDate() { return startDate; }
     public LocalTime getStartTime() { return startTime; }

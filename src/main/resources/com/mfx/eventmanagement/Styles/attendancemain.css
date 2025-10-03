@@ -1,0 +1,134 @@
+/*
+ * AttendanceMain.css
+ * Modern Dark Theme for Attendance Management Interface
+ *
+ * Uses:
+ * - A dark, clean color palette.
+ * - Rounded corners and subtle shadows for depth.
+ * - Consistent spacing and typography.
+ */
+
+/* --- ROOT CONTAINERS & BACKGROUND --- */
+.root {
+    -fx-background-color: #1e293b; /* Dark Slate Blue */
+    -fx-font-family: 'Inter', sans-serif; /* Use a modern, readable font */
+}
+
+/* Main content area (VBox inside the primary HBox) */
+.content-area {
+    -fx-background-color: #f8fafc; /* Light off-white for the main content panel */
+}
+
+/* Sidebar (AnchorPane) */
+.sidebar {
+    -fx-background-color: #0f172a; /* Deep Navy for a strong contrast */
+    -fx-padding: 20px;
+}
+
+
+/* --- TOP BAR (HEADER) --- */
+.header-bar {
+    -fx-spacing: 15px; /* Spacing between buttons/controls */
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 20px 22px 10px 22px; /* Padding for the top bar */
+}
+
+
+/* --- MFX COMBO BOX (Event Selector) --- */
+.mfx-combo-box {
+    -mfx-main-color: #3b82f6; /* Primary accent blue */
+    -fx-background-color: #ffffff; /* White background */
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-font-size: 14px;
+    -fx-min-height: 48px;
+}
+.mfx-combo-box > .text-field {
+    -fx-text-fill: #1e293b;
+}
+
+
+/* --- MFX BUTTONS --- */
+.mfx-button {
+    /* Base styles */
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-min-height: 48px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0.0, 0, 2);
+}
+
+/* Primary/Accent Button (Add, Share) */
+.mfx-button-primary {
+    -mfx-main-color: #3b82f6; /* Accent blue */
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+}
+.mfx-button-primary:hover {
+    -fx-background-color: #2563eb;
+    -fx-scale-y: 1.02;
+    -fx-scale-x: 1.02;
+}
+
+/* Secondary/Outline Button (Import) */
+.mfx-button-secondary {
+    -mfx-main-color: #94a3b8; /* Gray accent */
+    -fx-background-color: white;
+    -fx-border-color: #94a3b8;
+    -fx-border-width: 1px;
+    -fx-text-fill: #1e293b;
+}
+.mfx-button-secondary:hover {
+    -fx-background-color: #e2e8f0;
+}
+
+
+/* --- SEPARATOR LINE --- */
+.separator-line {
+    -fx-stroke: #cbd5e1; /* Light gray line */
+    -fx-stroke-width: 1px;
+    -fx-padding: 0 0 5px 0;
+}
+
+/* --- COLUMN HEADERS (Table Header) --- */
+.column-header-row {
+    -fx-background-color: #f1f5f9; /* Slightly darker than content area */
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 22px; /* Match horizontal padding of top bar */
+}
+
+.column-header-label {
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-text-fill: #475569; /* Dark gray text */
+    -fx-padding: 10px 5px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+
+/* --- MFX LIST VIEW (Data Table) --- */
+.mfx-list-view {
+    -fx-background-color: transparent;
+    -fx-padding: 0 22px 22px 22px;
+}
+/* Individual List Cell Styling */
+.list-cell {
+    -fx-background-color: white;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-padding: 10px 15px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px;
+    -fx-margin: 5px 0; /* Add margin between cells */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0.0, 0, 1);
+    -fx-min-height: 50px;
+}
+.list-cell:selected {
+    -fx-background-color: #eff6ff; /* Light blue background when selected */
+    -fx-border-color: #3b82f6;
+}
+.list-cell:hover {
+    -fx-background-color: #f7f9fc;
+}

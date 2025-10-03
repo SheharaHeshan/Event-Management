@@ -83,7 +83,7 @@ public class EventController {
 
             //MainFrameController controllerToPass = this.mainFrameController != null ? this.mainFrameController : (MainFrameController) this;
 
-            cardController.setEventData(event, mainFrameController); // Pass the best available reference.
+            cardController.setEventData(event, mainFrameController,eventCard, eventList); // Pass the best available reference.
 
 
             // 3. CRITICAL FIX: Pass the stored MainFrameController reference (which was set via the setter)
@@ -91,10 +91,10 @@ public class EventController {
             if (mainFrameController == null) {
                 System.err.println("FATAL ERROR: The MainFrameController reference was not set on EventController via setMainFrameController(). Cannot load card data.");
                 // We fall back to 'this' as a safeguard, but the app should fix the missing setter call.
-                cardController.setEventData(event, this.mainFrameController); // Fallback: pass itself, which only works if EventController IS the MainFrameController
+                cardController.setEventData(event, this.mainFrameController,eventCard,eventList); // Fallback: pass itself, which only works if EventController IS the MainFrameController
             } else {
                 // ✅ CORRECT: Pass the reference to the actual top-level controller.
-                cardController.setEventData(event, mainFrameController);
+                cardController.setEventData(event, mainFrameController,eventCard,eventList);
             }
 
             // 4. Add the configured card to the MFXListView
@@ -138,4 +138,3 @@ public class EventController {
 
 
 }
-

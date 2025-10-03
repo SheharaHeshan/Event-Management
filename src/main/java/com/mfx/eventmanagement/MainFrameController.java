@@ -22,6 +22,7 @@ import java.io.IOException;
 
 import java.io.IOException;
 // This is not the correct way to set margin, but is not needed in this solution
+import com.mfx.eventmanagement.EventController;
 
 public class MainFrameController {
     @FXML
@@ -63,7 +64,7 @@ public class MainFrameController {
     }
 
     @FXML
-    private void loadEventMenu(){
+    public void loadEventMenu(){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EventMain.fxml"));
             Parent eventPane = fxmlLoader.load();

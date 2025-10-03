@@ -15,8 +15,8 @@ public class DatabaseManager {
 
     // ⚠️ IMPORTANT: Update these credentials
     private static final String DB_URL = "jdbc:mysql://68.183.226.234:3306/main_event";
-    private static final String DB_USER = "root"; // e.g., "root"
-    private static final String DB_PASSWORD = "1234"; // e.g., "password123"
+    private static final String DB_USER = "shehara"; // e.g., "root"
+    private static final String DB_PASSWORD = "123"; // e.g., "password123"
 
     /**
      * Establishes a connection to the MySQL database.
@@ -39,7 +39,7 @@ public class DatabaseManager {
      */
     public boolean insertNewEvent(
             String name, String description, LocalDate startDate, LocalDate endDate,
-            LocalTime startTime, LocalTime endTime, String eventType, String attendanceType) {
+            LocalTime startTime, LocalTime endTime, String eventType, String attendanceType,int[] generatedEventId) {
 
         String sql = "INSERT INTO events (event_name, event_description, start_date, end_date, start_time, end_time, event_type, attendance_type) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -57,7 +57,15 @@ public class DatabaseManager {
             pstmt.setString(8, attendanceType);
 
             int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0; // Return true if insertion was successful
+            if (rowsAffected > 0) {
+                try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        generatedEventId[0] = rs.getInt(1); // Store event_id in array
+                    }
+                }
+                return true;
+            }
+            return false;
 
         } catch (SQLException e) {
             System.err.println("Database error during event insertion: " + e.getMessage());
@@ -71,7 +79,7 @@ public class DatabaseManager {
     public List<EventDataStore> loadAllEvents() {
         List<EventDataStore> events = new ArrayList<>();
         // Select all columns needed for the EventDataStore constructor
-        String sql = "SELECT event_name, event_description, start_date, end_date, start_time, end_time, event_type, attendance_type FROM events ORDER BY start_date ASC";
+        String sql = "SELECT event_id,event_name, event_description, start_date, end_date, start_time, end_time, event_type, attendance_type FROM events ORDER BY start_date ASC";
 
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
@@ -79,6 +87,7 @@ public class DatabaseManager {
 
             while (rs.next()) {
                 // Retrieve data from the current row
+                int eventId = rs.getInt("event_id");
                 String name = rs.getString("event_name");
                 String description = rs.getString("event_description");
 
@@ -93,7 +102,7 @@ public class DatabaseManager {
 
                 // Create and add the EventDataStore object
                 EventDataStore event = new EventDataStore(
-                        name, description, startDate, endDate,
+                        eventId,name, description, startDate, endDate,
                         startTime, endTime, eventType, attendanceType
                 );
                 events.add(event);
@@ -129,6 +138,28 @@ public class DatabaseManager {
     }
 
     /**
+     * Deletes an event from the 'events' table by its ID.
+     * @param eventId The ID of the event to delete.
+     * @return true if deletion was successful, false otherwise.
+     */
+    public boolean deleteEventById(int eventId) {
+        String sql = "DELETE FROM events WHERE event_id = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, eventId);
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error deleting event with ID " + eventId + ": " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
      * Retrieves attendance records for a specific event.
      */
     public List<AttendanceRecordStore > getAttendanceByEventId(int eventId) {
@@ -156,6 +187,42 @@ public class DatabaseManager {
             System.err.println("Error loading attendance for event ID " + eventId + ": " + e.getMessage());
         }
         return attendanceList;
+    }
+
+    /**
+     * Retrieves the full attendance record by attendance ID.
+     * @param attendanceId The ID of the attendance record.
+     * @return The full AttendanceRecordStore, or null if not found.
+     */
+    public AttendanceRecordStore getFullAttendanceRecord(int attendanceId) {
+        String sql = "SELECT * FROM attendance WHERE attendance_id = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, attendanceId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return new AttendanceRecordStore(
+                            rs.getInt("attendance_id"),
+                            rs.getInt("event_id"),
+                            rs.getString("fullname"),
+                            rs.getInt("age"),
+                            rs.getString("gender"),
+                            rs.getString("about"),
+                            rs.getString("address"),
+                            rs.getString("email"),
+                            rs.getString("phonenumber"),
+                            rs.getString("profile_picture_path"),
+                            rs.getTimestamp("log_timestamp").toLocalDateTime()
+                    );
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error loading full attendance record for ID " + attendanceId + ": " + e.getMessage());
+        }
+        return null;
     }
 
     /**

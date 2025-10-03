@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane minHeight="600.0" minWidth="250.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="AttenName" alignment="CENTER" layoutX="16.0" layoutY="241.0" prefHeight="37.0" prefWidth="218.0" style="-fx-border-color: blue;" text="Name" />
+      <Label layoutX="18.0" layoutY="300.0" text="Age" />
+      <Label fx:id="AttenAge" alignment="CENTER" layoutX="16.0" layoutY="318.0" prefHeight="38.0" prefWidth="70.0" style="-fx-border-color: blue;" text="Age" />
+      <Label layoutX="105.0" layoutY="300.0" text="Gender" />
+      <Label fx:id="AttenGender" alignment="CENTER" layoutX="103.0" layoutY="318.0" prefHeight="38.0" prefWidth="130.0" style="-fx-border-color: blue;" text="Gender" />
+      <Label layoutX="16.0" layoutY="372.0" text="Phone Number" />
+      <Label fx:id="AttenNumber" alignment="CENTER" layoutX="15.0" layoutY="390.0" prefHeight="37.0" prefWidth="218.0" style="-fx-border-color: blue;" text="NUm" />
+      <Label layoutX="16.0" layoutY="437.0" prefHeight="18.0" prefWidth="53.0" text="Address" />
+      <Label fx:id="AttenAddress" alignment="CENTER" layoutX="16.0" layoutY="455.0" prefHeight="37.0" prefWidth="218.0" style="-fx-border-color: blue;" text="Address" />
+      <Label layoutX="16.0" layoutY="499.0" prefHeight="18.0" prefWidth="53.0" text="About" />
+      <Label fx:id="AttenAbout" alignment="CENTER" layoutX="16.0" layoutY="517.0" prefHeight="65.0" prefWidth="218.0" style="-fx-border-color: blue;" text="about" />
+      <ImageView fx:id="profilePicture" fitHeight="217.0" fitWidth="250.0" layoutX="17.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@com/mfx/eventmanagement/stock-img/profile-attendance.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

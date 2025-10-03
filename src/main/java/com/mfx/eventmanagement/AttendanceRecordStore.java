@@ -43,9 +43,11 @@ public class AttendanceRecordStore {
     public String getFullname() { return fullname; }
     public String getEmail() { return email; }
     public LocalDateTime getLogTimestamp() { return logTimestamp; }
-    public String getProfilePicturePath() {
-        return profilePicturePath;
-    }
-
-
+    public String getProfilePicturePath() {return profilePicturePath;}
+    public int getEventId() { return eventId; }
+    public int getAge() { return age; }
+    public String getGender() { return gender; }
+    public String getAbout() { return about; }
+    public String getAddress() { return address; }
+    public String getPhonenumber() { return phonenumber; }
 }

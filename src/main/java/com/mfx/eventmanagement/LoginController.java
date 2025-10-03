@@ -3,9 +3,14 @@ package com.mfx.eventmanagement;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
 import java.util.Map;
 
 // NOTE: PasswordHashUtil is no longer needed since we are comparing raw strings.
@@ -81,8 +86,36 @@ public class LoginController {
             showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome back, " + email + "!");
             System.out.println("User " + userId + " logged in successfully.");
 
-            // Transition to the main application view
-            SceneLoader.loadScene(event, "MainFrame.fxml");
+//            // Transition to the main application view
+//            SceneLoader.loadScene(event, "MainFrame.fxml");
+            try {
+                // 1. Load the MainFrame.fxml file
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("MainFrame.fxml"));
+                Parent mainFrameRoot = loader.load();
+
+                // 2. Get the MainFrameController instance
+                MainFrameController mainController = loader.getController();
+
+                // 3. Set the new Scene
+                Stage stage = (Stage) ((MFXButton) event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(mainFrameRoot));
+                stage.show();
+
+                // 4. Call a method on the MainFrameController to load the initial view (EventMain.fxml)
+                // Note: We need to create loadInitialView() in MainFrameController
+                if (mainController != null) {
+                    mainController.loadEventMenu(); // Directly call the existing method
+                } else {
+                    System.err.println("FATAL ERROR: MainFrameController is null after loading MainFrame.fxml.");
+                }
+
+            } catch (java.io.IOException e) {
+                System.err.println("Failed to load MainFrame.fxml: " + e.getMessage());
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "System Error", "Could not load the main application view.");
+            }
+
+
 
         } else {
             // Password verification failed
